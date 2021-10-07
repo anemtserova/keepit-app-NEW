@@ -33,7 +33,7 @@ export const ContactCard = props => {
 	};
 
 	return (
-		<li className="list-group-item my-1 card-style">
+		<li className="list-group-item my-2 card-style">
 			<div className="d-flex flex-row w-100 ">
 				<div className="d-flex justify-content-center align-items-center w-50">
 					<img
@@ -45,7 +45,7 @@ export const ContactCard = props => {
 				</div>
 				<div className="d-flex flex-column w-50 py-2 pl-4 m-3 info-box">
 					<div className="d-flex flex-row justify-content-end">
-						<div className="mr-3">
+						<div className="mx-3">
 							<Link className="" to={"/edit/" + props.entity.id}>
 								<button className="btn item2-color w-100  ">
 									<i className="fas fa-pencil-alt w-100 " />
@@ -60,19 +60,19 @@ export const ContactCard = props => {
 					</div>
 					<h2 className="name heading-1">{props.entity.full_name}</h2>
 					<div className="d-flex flex-row mb-2">
-						<i className="fas fa-map-marker-alt text-muted mr-3 align-self-center" />
+						<i className="fas fa-map-marker-alt text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted">{props.entity.address}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
-						<i className="fa fa-phone fa-fw text-muted mr-3 align-self-center" />
+						<i className="fa fa-phone fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted">{props.entity.phone}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
-						<i className="fa fa-envelope fa-fw text-muted mr-3 align-self-center" />
+						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted text-truncate">{props.entity.email}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
-						<i className="fas fa-pen-alt text-muted mr-3 align-self-center" />
+						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
 							{includeNote()}
 							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))}

@@ -21,9 +21,9 @@ export const Contacts = () => {
 
 	return (
 		<div className="container">
-			<div>
-				<p className="text-right my-3">
-					<Link className="btn btn-style" to="/add">
+			<div className=" d-flex flex-column">
+				<p className="d-flex justify-content-end my-3">
+					<Link className="btn btn-style " to="/add">
 						Add a new contact
 					</Link>
 				</p>

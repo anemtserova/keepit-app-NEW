@@ -120,12 +120,14 @@
 
 .card-style {
     background: var(--alice-blue);
-    border: 1px var(--granny-smith-apple) solid;
-    border-radius: 15px;
+    border: 1.5px var(--granny-smith-apple) solid;
+    border-radius: 10px;
+
 }
 
 .info-box {
     border-left: 1px solid var(--granny-smith-apple);
+    padding-left: 1.1rem;
 }
 
 .footer-style {

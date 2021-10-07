@@ -79,7 +79,7 @@ export const AddContact = props => {
 							placeholder="Write a note"
 						/>
 					</div>
-					<button onClick={() => handleSave()} type="button" className="btn btn-style form-control">
+					<button onClick={() => handleSave()} type="button" className="btn btn-style form-control mt-3">
 						Save
 					</button>
 					<Link className="mt-3 w-100 text-center heading-3" to="/contacts">
