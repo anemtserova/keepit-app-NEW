@@ -45,7 +45,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch("https://3001-sapphire-mule-7vfxj6dr.ws-eu18.gitpod.io" + "/api/token", opts);
+					const resp = await fetch(
+						"https://3001-sapphire-mule-7vfxj6dr.ws-eu18.gitpod.io" + "/api/token",
+						opts
+					);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
