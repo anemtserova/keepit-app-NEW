@@ -1,3 +1,149 @@
 /* 
     General Styles
 */
+
+
+
+:root {
+    --charleston-green: #293132ff;
+    --ruby-red: #a31621ff;
+    --orange-peel: #ff9f1cff;
+    --granny-smith-apple: #9cde9fff;
+    --alice-blue: #EDF7D2ff;
+    --sizzling-red: #ca1622;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    font-family: Raleway;
+    color: var(--charleston-green);
+    
+}
+
+
+.navbar-style {
+    background-color: var(--ruby-red);
+    color: var(--alice-blue);
+    height: 6.5rem;
+    
+}
+
+.navbar-logo {
+    font-family: Bebas Neue;
+    font-size: 3rem;
+    color: var(--alice-blue);
+}
+
+.btn-style {
+    background-color: var(--orange-peel);
+    font-family: Bebas Neue;
+    font-size: 2rem;
+}
+
+.btn-style-modal1 {
+    background-color: var(--orange-peel);
+    border: 2px solid var(--ruby-red);
+    font-family: Bebas Neue;
+    font-size: 1.4rem;
+}
+
+.btn-style-modal2 {
+    background-color: var(--granny-smith-apple);
+    border: 2px solid var(--charleston-green);
+    font-family: Bebas Neue;
+    font-size: 1.4rem;
+}
+
+.modal-style {
+    background: var(--alice-blue);
+    border-bottom: solid 1px var(--granny-smith-apple);
+    
+}
+
+.modal-style2 {
+    background: var(--alice-blue);
+    border-top: solid 1px var(--granny-smith-apple);
+    
+}
+
+.modal-title {
+    font-family: Bebas Neue;
+}
+
+.heading-1 {
+    font-family: Bebas Neue;
+    font-size: 3rem;
+    
+}
+
+.heading-2 {
+    font-family: Bebas Neue;
+    font-size: 2.5rem;
+    
+}
+
+.heading-3 {
+    font-family: Bebas Neue;
+    font-size: 1.5rem;
+    color: var(--ruby-red);
+}
+
+.card-style {
+    background: var(--alice-blue);
+    border: 1px var(--granny-smith-apple) solid;
+    border-radius: 15px;
+}
+
+.info-box {
+    border-left: 1px solid var(--granny-smith-apple);
+}
+
+.footer-style {
+    height: 6rem;
+    margin-top: 0.2rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-logo {
+    background: var(--orange-peel);
+    border: 1px solid var(--ruby-red);
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-family: Bebas Neue;
+    padding: 3px;
+}
+
+.container {
+    min-height: calc(100vh - 13.5rem);
+    overflow: hidden;
+    //display: block;
+    position: relative;
+    //padding-bottom: 5rem; 
+}
+
+.item1-color {
+    border: var(--ruby-red) 2px solid;
+    background: var(--orange-peel);
+}
+.item2-color {
+    background: var(--granny-smith-apple);
+    border: var(--charleston-green) 2px solid;
+}
+
+.box-btn-options {
+    width: 0.8rem;
+    height: 0.8rem;
+    border: 1px solid var(--charleston-green);
+    margin: 0.2rem;
+}
+
+.note-script {
+    font-family: Dancing Script;
+    font-size: 1.8rem;
+}

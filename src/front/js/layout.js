@@ -2,13 +2,19 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+import { Logout } from "./pages/logout";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
+import { AddContact } from "./pages/AddContact.js";
+import { Contacts } from "./pages/Contacts.js";
+import { EditContact } from "./pages/EditContact.js";
+import { Login } from "./pages/login.js";
+import { Home } from "./pages/home.js";
 
-import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
+import { Navbar } from "./component/navbar.js";
+import { Footer } from "./component/footer.js";
+import { Modal } from "./component/Modal";
+import { ContactCard } from "./component/ContactCard";
 
 //create your first component
 const Layout = () => {
@@ -17,20 +23,39 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div>
+		<div className="h-100 ">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
+						<Route exact path="/index.html" component={Contacts} />
+						{/* <Route exact path="/" component={Contacts} /> */}
+						<Route exact path="/login">
+							<Login />
+						</Route>
+						<Route exact path="/add" component={AddContact} />
+						<Route exact path="/edit/:id" component={EditContact} />
+						<Route exact path="/" component={Home} />
+						<Route exact path="/logout" component={Logout} />
+
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route exact path="/demo">
-							<Demo />
+						<Route exact path="/contacts">
+							<Contacts />
 						</Route>
-						<Route exact path="/single/:theid">
+						<Route exact path="/logout">
+							<Logout />
+						</Route>
+						<Route exact path="/edit/:id">
+							<EditContact />
+						</Route>
+						<Route exact path="/add">
+							<AddContact />
+						</Route>
+						{/* <Route exact path="/single/:theid">
 							<Single />
-						</Route>
+						</Route> */}
 						<Route>
 							<h1>Not found!</h1>
 						</Route>
