@@ -51,3 +51,33 @@ def user():
         new_user = new_user.serialize()
         return jsonify(new_user), 200
     
+
+@api.route('/<username>/contact', methods=['POST'])
+def contact():
+    new_contact = request.get_json()
+    if request.method == "POST":
+        if new_contact is None or new_contact['name'] is None : 
+            raise APIException("Name is required to save the contact", status_code=400) 
+        new_contact = Contact(name=new_contact["name"], email=new_contact["email"], address=new_contact["address"], phone=new_contact["phone"]) 
+        db.session.add(new_contact)
+        db.session.commit()  
+        contact_updated = Contact.query.filter_by(id=new_contact["user_id"]).first()
+        contact_updated = contact_updated.serialize()
+        return jsonify(contact_updated), 200
+    
+@api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
+def edit_contact():
+    contact_to_edit = request.get_json()
+    contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
+    if request.method == "PUT":
+        contact.name = contact_to_edit['name']
+        contatc.email = contact_to_edit['email']
+        contact.address = contact_to_edit['address']
+        contact.phone = contact_to_edit['phone']
+        contact = contact.serialize()
+        db.session.commit()
+        return jsonify(contact), 200
+    elif request.method == "DELETE":
+        db.session.delete(contact)
+        db.session.commit()
+        
