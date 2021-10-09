@@ -53,7 +53,7 @@ def user():
     
 
 @api.route('/<username>/contact', methods=['POST'])
-def contact():
+def add_contact():
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
@@ -61,12 +61,13 @@ def contact():
         new_contact = Contact(name=new_contact["name"], email=new_contact["email"], address=new_contact["address"], phone=new_contact["phone"]) 
         db.session.add(new_contact)
         db.session.commit()  
-        contact_updated = Contact.query.filter_by(id=new_contact["user_id"]).first()
-        contact_updated = contact_updated.serialize()
-        return jsonify(contact_updated), 200
+        contacts_updated = Contact.query.filter_by(id=new_contact["user_id"]).first()
+        contacts_updated = contacts_updated.serialize()
+        
+        return jsonify(contacts_updated), 200
     
 @api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
-def edit_contact():
+def contact():
     contact_to_edit = request.get_json()
     contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
     if request.method == "PUT":
@@ -80,4 +81,13 @@ def edit_contact():
     elif request.method == "DELETE":
         db.session.delete(contact)
         db.session.commit()
-        
+
+@api.route('/<username>/contact/<int:id>/note', methods=['POST'])
+def add_note():
+    new_note = request.get_json()
+    new_note = Note(text=new_note['text'])
+    db.session.add(new_note)
+    db.session.commit()
+    # contact_note = Note.query.filter_by(id=new_note['id'])
+    # all_notes = contact
+    return jsonify(new_note)
