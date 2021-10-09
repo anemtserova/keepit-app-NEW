@@ -37,3 +37,16 @@ def greet_user():
         }
     
     return jsonify(hello_user)
+
+@api.route('/user', methods=['POST'])
+def user():
+    new_user = request.get_json()
+    if request.method == "POST":
+        if new_user is None or new_user['email'] is None or new_user['username'] is None or new_user['password'] is None:
+            raise APIException("Input in all fields required", status_code=400)
+        new_user = User(username=new_user["username"], email=new_user["email"], password=new_user["password"])
+        db.session.add(new_user)
+        db.session.commit() 
+        new_user = new_user.serialize()
+        return jsonify(new_user), 200
+    
