@@ -63,10 +63,10 @@ def add_contact():
         db.session.commit()  
         
         
-        return jsonify(contacts_updated), 200
+        return jsonify(new_contact), 200
     
 @api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
-def contact():
+def handle_contact():
     contact_to_edit = request.get_json()
     contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
     if request.method == "PUT":
@@ -87,6 +87,5 @@ def add_note():
     new_note = Note(text=new_note['text'])
     db.session.add(new_note)
     db.session.commit()
-    # contact_note = Note.query.filter_by(id=new_note['id'])
-    # all_notes = contact
+    
     return jsonify(new_note)
