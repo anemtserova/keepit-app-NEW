@@ -47,8 +47,8 @@ def user():
             raise APIException("Input in all fields required", status_code=400)
         new_user = User(username=new_user["username"], email=new_user["email"], password=new_user["password"])
         db.session.add(new_user)
-        db.session.commit() 
-        new_user = new_user.serialize()
+        db.session.commit()
+        
         return jsonify(new_user), 200
     
 
@@ -61,8 +61,7 @@ def add_contact():
         new_contact = Contact(name=new_contact["name"], email=new_contact["email"], address=new_contact["address"], phone=new_contact["phone"]) 
         db.session.add(new_contact)
         db.session.commit()  
-        contacts_updated = Contact.query.filter_by(id=new_contact["user_id"]).first()
-        contacts_updated = contacts_updated.serialize()
+        
         
         return jsonify(contacts_updated), 200
     
