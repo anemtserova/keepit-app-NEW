@@ -32,7 +32,7 @@ class Contact(db.Model):
     
 
     def __repr__(self):
-        return '<Contact %r %r %r %r>' % (self.name, self.address, self.contact_email,  self.phone ) 
+        return '<Contact %r %r %r %r>' % (self.name, self.address, self.contact_email, self.phone ) 
 
     def serialize(self):
         return {

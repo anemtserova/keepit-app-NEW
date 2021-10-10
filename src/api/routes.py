@@ -53,8 +53,8 @@ def user():
         return jsonify(new_user.serialize()), 200
     
 
-@api.route('/user/contact', methods=['POST'])
-def add_contact():
+@api.route('/<username>/contact', methods=['POST'])
+def add_contact(username):
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
@@ -64,7 +64,7 @@ def add_contact():
         db.session.commit()  
         
         
-        return jsonify(new_contact), 200
+        return jsonify(new_contact.serialize()), 200
     
 @api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
 def handle_contact():
