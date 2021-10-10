@@ -29,7 +29,7 @@ class Contact(db.Model):
     phone= db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.relationship('Note', backref='contact')
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    
 
     def __repr__(self):
         return '<Contact %r %r %r %r>' % (self.name, self.address, self.contact_email,  self.phone ) 
