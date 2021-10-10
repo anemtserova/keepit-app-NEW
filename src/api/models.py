@@ -26,7 +26,7 @@ class Contact(db.Model):
     name = db.Column(db.String(120), unique=False, nullable=False)
     address = db.Column(db.String(240), unique=False, nullable=False)
     contact_email = db.Column(db.String(120), unique=True, nullable=False)
-    phone= db.Column(db.String(120), unique=True, nullable=False)
+    phone= db.Column(db.String(240), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.relationship('Note', backref='contact')
     
