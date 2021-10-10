@@ -67,8 +67,8 @@ def add_contact(username):
         return jsonify(new_contact.serialize()), 200
 
 @api.route('/<username>/contacts', methods=['GET'])
-def get_contacts(username):
-    all_user_contacts = Contact.query.filter_by(username=username)
+def get_contacts(user_id):
+    all_user_contacts = Contact.query.filter_by(user_id=user_id)
     all_user_contacts = list(map(lambda x: x.serialize(), all_user_contacts))
 
     return jsonify(all_user_contacts), 200
