@@ -53,7 +53,7 @@ def user():
         return jsonify(new_user.serialize()), 200
     
 
-@api.route('/<username>/contact', methods=['POST'])
+@api.route('/<username>/addcontact', methods=['POST'])
 def add_contact(username):
     new_contact = request.get_json()
     if request.method == "POST":
@@ -65,9 +65,16 @@ def add_contact(username):
         
         
         return jsonify(new_contact.serialize()), 200
+
+@api.route('/<username>/contacts', methods=['GET'])
+def get_contacts(username):
+    all_user_contacts = Contact.query.filter_by(username=username)
+    all_user_contacts = list(map(lambda x: x.serialize(), all_user_contacts))
+
+    return jsonify(all_user_contacts), 200
     
 @api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
-def handle_contact():
+def handle_contact(username, id):
     contact_to_edit = request.get_json()
     contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
     if request.method == "PUT":
