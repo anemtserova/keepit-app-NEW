@@ -11,7 +11,7 @@ class User(db.Model):
     #is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r %r>' % (self.username, self.email) 
+        return '<User %r %r %r>' % (self.username, self.email, self.id) 
 
     def serialize(self):
         return {
@@ -26,7 +26,7 @@ class Contact(db.Model):
     name = db.Column(db.String(120), unique=False, nullable=False)
     address = db.Column(db.String(240), unique=False, nullable=False)
     contact_email = db.Column(db.String(120), unique=True, nullable=False)
-    phone= db.Column(db.Integer, unique=True, nullable=False)
+    phone= db.Column(db.String(120), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.relationship('Note', backref='contact')
     
@@ -51,7 +51,6 @@ class Note(db.Model):
 
     def __repr__(self):
         return '<Note %r >' % (self.text ) 
-
 
     def serialize(self):
         return {

@@ -50,16 +50,16 @@ def user():
         db.session.add(new_user)
         db.session.commit()
         
-        return jsonify(new_user), 200
+        return jsonify(new_user.serialize()), 200
     
 
 @api.route('/<username>/contact', methods=['POST'])
-def add_contact():
+def add_contact(username):
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
             raise APIException("Name is required to save the contact", status_code=400) 
-        new_contact = Contact(name=new_contact["name"], email=new_contact["email"], address=new_contact["address"], phone=new_contact["phone"]) 
+        new_contact = Contact(name=new_contact["name"], contact_email=new_contact["contact_email"], address=new_contact["address"], phone=new_contact["phone"]) 
         db.session.add(new_contact)
         db.session.commit()  
         
