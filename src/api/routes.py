@@ -51,6 +51,14 @@ def user():
         db.session.commit()
         
         return jsonify(new_user.serialize()), 200
+
+@api.route('/users', methods=['GET'])
+def all_users():
+    if request.method == "GET":
+        all_users = User.query.all()
+        all_users = list(map(lambda x: x.serialize(), all_people))
+
+        return jsonify(all_users), 200
     
 
 @api.route('/<username>/addcontact', methods=['POST'])
@@ -63,18 +71,19 @@ def add_contact(username):
         db.session.add(new_contact)
         db.session.commit()  
         
-        
         return jsonify(new_contact.serialize()), 200
 
-@api.route('/<username>/contacts', methods=['GET'])
+
+@api.route('/<user_id>/contacts', methods=['GET'])
 def get_contacts(user_id):
-    all_user_contacts = Contact.query.filter_by(user_id=user_id)
+    all_user_contacts = Contact.query.filter_by(user_id=user_id).first()
     all_user_contacts = list(map(lambda x: x.serialize(), all_user_contacts))
 
     return jsonify(all_user_contacts), 200
-    
-@api.route('/<username>/contact/<int:id>', methods=['PUT','DELETE'])
-def handle_contact(username, id):
+
+
+@api.route('/<user_id>/contact/<int:id>', methods=['PUT','DELETE'])
+def handle_contact(user_id, id):
     contact_to_edit = request.get_json()
     contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
     if request.method == "PUT":
@@ -88,6 +97,7 @@ def handle_contact(username, id):
     elif request.method == "DELETE":
         db.session.delete(contact)
         db.session.commit()
+
 
 @api.route('/<username>/contact/<int:id>/note', methods=['POST'])
 def add_note():
