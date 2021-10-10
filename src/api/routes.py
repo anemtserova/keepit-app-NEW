@@ -53,8 +53,8 @@ def user():
         return jsonify(new_user.serialize()), 200
     
 
-@api.route('/<username>/contact', methods=['POST'])
-def add_contact(username):
+@api.route('/user/contact', methods=['POST'])
+def add_contact():
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
