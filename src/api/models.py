@@ -17,7 +17,8 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            "username": self.username
+            "username": self.username,
+            "contacts": list(map(lambda x: x.serialize(), self.contacts))
             # do not serialize the password, its a security breach
         }
 
@@ -25,8 +26,8 @@ class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=False, nullable=False)
     address = db.Column(db.String(240), unique=False, nullable=False)
-    contact_email = db.Column(db.String(120), unique=True, nullable=False)
-    phone= db.Column(db.String(240), unique=True, nullable=False)
+    contact_email = db.Column(db.String(120), unique=False, nullable=False)
+    phone= db.Column(db.String(240), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     notes = db.relationship('Note', backref='contact')
     
@@ -40,7 +41,8 @@ class Contact(db.Model):
             "name": self.name,
             "address": self.address,
             "contact_email": self.contact_email,
-            "phone": self.phone
+            "phone": self.phone,
+            "notes": list(map(lambda x: x.serialize(), self.notes))
             # do not serialize the password, its a security breach
         }
 

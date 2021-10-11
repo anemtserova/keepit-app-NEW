@@ -40,7 +40,7 @@ def greet_user():
     
     return jsonify(hello_user)
 
-@api.route('/user', methods=['POST'])
+@api.route('/user', methods=['POST']) #working
 def user():
     new_user = request.get_json()
     if request.method == "POST":
@@ -52,16 +52,16 @@ def user():
         
         return jsonify(new_user.serialize()), 200
 
-@api.route('/users', methods=['GET'])
+@api.route('/users', methods=['GET'])  #working
 def all_users():
     if request.method == "GET":
         all_users = User.query.all()
-        all_users = list(map(lambda x: x.serialize(), all_people))
+        all_users = list(map(lambda x: x.serialize(), all_users))
 
         return jsonify(all_users), 200
     
 
-@api.route('/<username>/addcontact', methods=['POST'])
+@api.route('/user/<username>/addcontact', methods=['POST'])  #working
 def add_contact(username):
     new_contact = request.get_json()
     if request.method == "POST":
@@ -74,32 +74,50 @@ def add_contact(username):
         return jsonify(new_contact.serialize()), 200
 
 
-@api.route('/<user_id>/contacts', methods=['GET'])
-def get_contacts(user_id):
-    all_user_contacts = Contact.query.filter_by(user_id=user_id).first()
-    all_user_contacts = list(map(lambda x: x.serialize(), all_user_contacts))
+@api.route('/user/<username>/contacts', methods=['GET'])
+def get_user_contacts(username):
+    # single_user_contacts = Contact.query.all()
+    # single_user_contacts = Contact.query.filter_by(username=username).first()
+    # single_user_contacts = Contact.query.filter_by(user_id=user_id).first()
+    # print("!!!!! User Contacts: ", type(single_user_contacts))
+    #single_user_contacts = list(map(lambda x: x.serialize(), single_user_contacts))
+    #try:
+        #int(username)
+        #raise APIException("Username cannot be numbers only", status_code=404) 
+    #except:
+    target_user = User.query.filter_by(username=username).first()
+    print("This the selected user contacts: ", target_user.contacts)
+    single_user_contacts = list(map(lambda x: x.serialize(), target_user.contacts))
 
-    return jsonify(all_user_contacts), 200
+
+    return jsonify(single_user_contacts), 200
 
 
-@api.route('/<user_id>/contact/<int:id>', methods=['PUT','DELETE'])
+@api.route('/user/<user_id>/contact/<id>', methods=['PUT','DELETE'])
 def handle_contact(user_id, id):
     contact_to_edit = request.get_json()
-    contact = Contact.query.filter_by(id=contact_to_edit["id"]).first()
+    target_contact = Contact.query.filter_by(user_id=user_id, id=id).first()
+    print("This is the contact", target_contact)
+
     if request.method == "PUT":
-        contact.name = contact_to_edit['name']
-        contatc.email = contact_to_edit['email']
-        contact.address = contact_to_edit['address']
-        contact.phone = contact_to_edit['phone']
-        contact = contact.serialize()
+        if "name" in contact_to_edit: 
+            print("There is a name")
+            target_contact.name = contact_to_edit['name']
+        if "contact_email" in contact_to_edit:
+            target_contact.contact_email = contact_to_edit['contact_email']
+        if "address" in contact_to_edit:
+            target_contact.address = contact_to_edit['address']
+        if "phone" in contact_to_edit:
+            target_contact.phone = contact_to_edit['phone']
+        target_contact = target_contact.serialize()
         db.session.commit()
-        return jsonify(contact), 200
+        return jsonify(target_contact), 200
     elif request.method == "DELETE":
-        db.session.delete(contact)
+        db.session.delete(target_contact)
         db.session.commit()
 
 
-@api.route('/<username>/contact/<int:id>/note', methods=['POST'])
+@api.route('/<username>/contact/<contact_id>/addnote', methods=['POST'])
 def add_note():
     new_note = request.get_json()
     new_note = Note(text=new_note['text'])
