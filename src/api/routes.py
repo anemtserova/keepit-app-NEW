@@ -76,15 +76,7 @@ def add_contact(username):
 
 @api.route('/user/<username>/contacts', methods=['GET'])
 def get_user_contacts(username):
-    # single_user_contacts = Contact.query.all()
-    # single_user_contacts = Contact.query.filter_by(username=username).first()
-    # single_user_contacts = Contact.query.filter_by(user_id=user_id).first()
-    # print("!!!!! User Contacts: ", type(single_user_contacts))
-    #single_user_contacts = list(map(lambda x: x.serialize(), single_user_contacts))
-    #try:
-        #int(username)
-        #raise APIException("Username cannot be numbers only", status_code=404) 
-    #except:
+    
     target_user = User.query.filter_by(username=username).first()
     print("This the selected user contacts: ", target_user.contacts)
     single_user_contacts = list(map(lambda x: x.serialize(), target_user.contacts))
