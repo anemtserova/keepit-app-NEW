@@ -43,7 +43,7 @@ class Contact(db.Model):
             "contact_email": self.contact_email,
             "phone": self.phone,
             "notes": list(map(lambda x: x.serialize(), self.notes)),
-            #"user_id": self.user_id
+            "user_id": self.user_id
         }
 
 class Note(db.Model):

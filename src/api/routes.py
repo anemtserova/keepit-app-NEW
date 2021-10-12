@@ -66,21 +66,22 @@ def all_users():
     
 
 # add a new contact to user contact list
-@api.route('/user/<user_id>/addcontact', methods=['POST'])  #working
+@api.route('/user/<int:user_id>/addcontact', methods=['POST'])  #working
 def add_contact(user_id):
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
             raise APIException("Name is required to save the contact", status_code=400) 
-        new_contact = Contact(name=new_contact["name"], contact_email=new_contact["contact_email"], address=new_contact["address"], phone=new_contact["phone"]) 
+        new_contact = Contact(name=new_contact["name"], contact_email=new_contact["contact_email"], address=new_contact["address"], phone=new_contact["phone"], user_id=user_id) 
         db.session.add(new_contact)
-        db.session.commit()  
+        db.session.commit() 
+
         
         return jsonify(new_contact.serialize()), 200
 
 
 # retrieve all contacts of a single user
-@api.route('/user/<username>/contacts', methods=['GET'])
+@api.route('/user/<username>/contacts', methods=['GET'])               #working
 def get_user_contacts(username):
     
     target_user = User.query.filter_by(username=username).first()
@@ -92,7 +93,7 @@ def get_user_contacts(username):
 
 
 # edit or delete specific contact from user contact list
-@api.route('/user/<user_id>/contact/<id>', methods=['PUT','DELETE'])
+@api.route('/user/<int:user_id>/contact/<int:id>', methods=['PUT','DELETE'])    # working
 def handle_contact(user_id, id):
     contact_to_edit = request.get_json()
     target_contact = Contact.query.filter_by(user_id=user_id, id=id).first()
