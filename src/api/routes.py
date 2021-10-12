@@ -18,7 +18,7 @@ api = Blueprint('api', __name__)
 
 
 # Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
+# create_access_token() function is used to generate the JWT.
 @api.route("/token", methods=["POST"])
 def create_token():
     username = request.json.get("username", None)
@@ -129,16 +129,17 @@ def add_note(contact_id):
     return jsonify(new_note.serialize())
 
 # edit or delete a note from a contact
-@api.route('/contact/<int:contact_id>/note/<int:id>', methods=['PUT', 'DELETE'])
+@api.route('/contact/<int:contact_id>/note/<int:id>', methods=['PUT', 'DELETE'])   #working
 def handle_note(contact_id, id):
     note_to_edit = request.get_json()
-    target_note = Note.query.filter_by(contact_id=contact_id, id=id)
+    target_note = Note.query.filter_by(contact_id=contact_id, id=id).first()
 
     if request.method == "PUT":
         if "text" in note_to_edit:
             target_note.text = note_to_edit["text"]
         target_note = target_note.serialize()
         db.session.commit()
+        return jsonify(target_note)
 
     if request.method == "DELETE":
         db.session.delete(target_note)
