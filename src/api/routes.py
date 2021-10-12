@@ -119,7 +119,7 @@ def handle_contact(user_id, id):
 
 
 # add a note to a contact 
-@api.route('/contact/<contact_id>/addnote', methods=['POST'])
+@api.route('/contact/<int:contact_id>/addnote', methods=['POST'])     #working
 def add_note(contact_id):
     new_note = request.get_json()
     new_note = Note(text=new_note['text'], contact_id=contact_id)
@@ -127,3 +127,20 @@ def add_note(contact_id):
     db.session.commit()
     
     return jsonify(new_note.serialize())
+
+# edit or delete a note from a contact
+@api.route('/contact/<int:contact_id>/note/<int:id>', methods=['PUT', 'DELETE'])
+def handle_note(contact_id, id):
+    note_to_edit = request.get_json()
+    target_note = Note.query.filter_by(contact_id=contact_id, id=id)
+
+    if request.method == "PUT":
+        if "text" in note_to_edit:
+            target_note.text = note_to_edit["text"]
+        target_note = target_note.serialize()
+        db.session.commit()
+
+    if request.method == "DELETE":
+        db.session.delete(target_note)
+        db.session.commit()
+        return jsonify("Note is deleted.")
