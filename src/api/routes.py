@@ -79,7 +79,7 @@ def add_contact(username):
         return jsonify(new_contact.serialize()), 200
 
 
-# retrieve all user contacts
+# retrieve all contacts of a single user
 @api.route('/user/<username>/contacts', methods=['GET'])
 def get_user_contacts(username):
     
