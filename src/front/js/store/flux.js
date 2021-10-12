@@ -25,19 +25,19 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// 	setStore({ noteArray: notesNotDeleted });
 			// 	localStorage.setItem("notes", JSON.stringify(notesNotDeleted));
 			// },
-			getAllUsers: () => {
-				fetch(process.env.BACKEND_URL + "/api/users", opts)
-					.then(response => {
-						if (!response.ok) {
-							throw Error(response.statusText);
-						}
-						return response.json();
-					})
-					.then(allUsers => {
-						setStore({ allUsers: allUsers });
-					})
-					.catch(err => console.log("There was a following error: " + err));
-			},
+			// getAllUsers: () => {
+			// 	fetch(process.env.BACKEND_URL + "/api/users", opts)
+			// 		.then(response => {
+			// 			if (!response.ok) {
+			// 				throw Error(response.statusText);
+			// 			}
+			// 			return response.json();
+			// 		})
+			// 		.then(allUsers => {
+			// 			setStore({ allUsers: allUsers });
+			// 		})
+			// 		.catch(err => console.log("There was a following error: " + err));
+			// },
 			// saveTokenFromSessionStorage: () => {
 			// 	const token = sessionStorage.getItem("token");
 			// 	if (token && token != "" && token != undefined) {
@@ -60,7 +60,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/token", opts);
+					const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
