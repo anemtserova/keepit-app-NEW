@@ -29,6 +29,7 @@ def create_token():
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token)
 
+# get user's name and greet them
 @api.route("/greet", methods=["GET"])
 @jwt_required()
 def greet_user():
@@ -40,6 +41,8 @@ def greet_user():
     
     return jsonify(hello_user)
 
+
+# create a new user
 @api.route('/user', methods=['POST']) #working
 def user():
     new_user = request.get_json()
@@ -52,6 +55,7 @@ def user():
         
         return jsonify(new_user.serialize()), 200
 
+# retrieve all users
 @api.route('/users', methods=['GET'])  #working
 def all_users():
     if request.method == "GET":
@@ -61,6 +65,7 @@ def all_users():
         return jsonify(all_users), 200
     
 
+# add a new contact to user contact list
 @api.route('/user/<username>/addcontact', methods=['POST'])  #working
 def add_contact(username):
     new_contact = request.get_json()
@@ -74,6 +79,7 @@ def add_contact(username):
         return jsonify(new_contact.serialize()), 200
 
 
+# retrieve all user contacts
 @api.route('/user/<username>/contacts', methods=['GET'])
 def get_user_contacts(username):
     
@@ -85,6 +91,7 @@ def get_user_contacts(username):
     return jsonify(single_user_contacts), 200
 
 
+# edit or delete specific contact from user contact list
 @api.route('/user/<user_id>/contact/<id>', methods=['PUT','DELETE'])
 def handle_contact(user_id, id):
     contact_to_edit = request.get_json()
@@ -107,13 +114,15 @@ def handle_contact(user_id, id):
     elif request.method == "DELETE":
         db.session.delete(target_contact)
         db.session.commit()
+        return jsonify("Contact is deleted."), 200
 
 
-@api.route('/<username>/contact/<contact_id>/addnote', methods=['POST'])
-def add_note():
+# add a note to a contact 
+@api.route('/contact/<contact_id>/addnote', methods=['POST'])
+def add_note(contact_id):
     new_note = request.get_json()
-    new_note = Note(text=new_note['text'])
+    new_note = Note(text=new_note['text'], contact_id=contact_id)
     db.session.add(new_note)
     db.session.commit()
     
-    return jsonify(new_note)
+    return jsonify(new_note.serialize())

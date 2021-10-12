@@ -33,7 +33,7 @@ class Contact(db.Model):
     
 
     def __repr__(self):
-        return '<Contact %r %r %r %r>' % (self.name, self.address, self.contact_email, self.phone ) 
+        return '<Contact %r %r %r %r %r>' % (self.name, self.address, self.contact_email, self.phone, self.user_id ) 
 
     def serialize(self):
         return {
@@ -42,8 +42,8 @@ class Contact(db.Model):
             "address": self.address,
             "contact_email": self.contact_email,
             "phone": self.phone,
-            "notes": list(map(lambda x: x.serialize(), self.notes))
-            # do not serialize the password, its a security breach
+            "notes": list(map(lambda x: x.serialize(), self.notes)),
+            "user_id": self.user_id
         }
 
 class Note(db.Model):
@@ -52,11 +52,12 @@ class Note(db.Model):
     contact_id = db.Column(db.Integer, db.ForeignKey('contact.id'))
 
     def __repr__(self):
-        return '<Note %r >' % (self.text ) 
+        return '<Note %r %r >' % (self.id, self.text ) 
 
     def serialize(self):
         return {
             "id": self.id,
-            "text": self.text
+            "text": self.text,
+            "contact_id": self.contact_id
             
         }
