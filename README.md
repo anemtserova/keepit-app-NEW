@@ -1,3 +1,5 @@
+# APP IS UNDER RECONSTRUCTION...
+
 # KeepIt.App
 
 This is a simple contact management app that has user authentication through `flask-JWT-extended` and is built with `reactjs`.
