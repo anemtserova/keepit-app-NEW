@@ -26,8 +26,11 @@ def create_token():
     if username is None or password is None:
         return jsonify({"msg": "Missing username or password"}), 401
 
+    user = User.query.filter_by(username=username, password=password).first()
+    if user is None:
+        return jsonify("This user doesn't exist"), 400
     access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
+    return jsonify({"token": access_token, "user": user.serialize()})
 
 # get user's name and greet them
 @api.route("/greet", methods=["GET"])

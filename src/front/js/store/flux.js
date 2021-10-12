@@ -5,7 +5,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 			token: null,
 			message: "",
 			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
-			allUsers: []
+			allUsers: [],
+			activeUser: {}
 		},
 		actions: {
 			// deleteNote: noteIndex => {
@@ -26,26 +27,26 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// },
 			getAllUsers: () => {
 				fetch(process.env.BACKEND_URL + "/api/users", opts)
-				.then(response => {
-					if (!response.ok) {
-						throw Error(response.statusText);
-					}
-					return response.json();
-				})
-				.then(allUsers => {
-					setStore({ allUsers: allUsers });
-				})
-				.catch(err => console.log("There was a following error: " + err));
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(allUsers => {
+						setStore({ allUsers: allUsers });
+					})
+					.catch(err => console.log("There was a following error: " + err));
 			},
-			saveTokenFromSessionStorage: () => {
-				const token = sessionStorage.getItem("token");
-				if (token && token != "" && token != undefined) {
-					setStore({ token: token });
-				}
-			},
+			// saveTokenFromSessionStorage: () => {
+			// 	const token = sessionStorage.getItem("token");
+			// 	if (token && token != "" && token != undefined) {
+			// 		setStore({ token: token });
+			// 	}
+			// },
 			logout: () => {
 				sessionStorage.removeItem("token");
-				setStore({ token: null });
+				setStore({ activeUser: null });
 			},
 			login: async (username, password) => {
 				const opts = {
@@ -59,18 +60,15 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch(
-						process.env.BACKEND_URL + "/api/token",
-						opts
-					);
+					const resp = await fetch(process.env.BACKEND_URL + "/api/token", opts);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
 					}
 					const data = await resp.json();
 					console.log("This came from the backend", data);
-					sessionStorage.setItem("token", data.access_token);
-					setStore({ token: data.access_token });
+					sessionStorage.setItem("token", data.token);
+					setStore({ activeUser: data.user });
 					return true;
 				} catch (error) {
 					console.error("There has been an error while loging in.");
@@ -123,7 +121,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(err => console.log("There has been an error loading message from backend", err));
-			},
+			}
 
 			// deleteFetch: id => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
