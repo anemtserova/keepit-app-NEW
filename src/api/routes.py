@@ -55,6 +55,31 @@ def user():
         
         return jsonify(new_user.serialize()), 200
 
+# get or delete a single user
+@api.route('/user/<username>', methods=['GET', 'DELETE', 'PUT'])      #working
+def handle_user(username):
+    single_user = request.get_json()
+    target_user = User.query.filter_by(username=username).first()
+
+    if request.method == "GET":
+        # target_user = single_user
+        return jsonify(target_user.serialize()), 200
+
+    # if request.method == "PUT":
+    #     # if "password" in single_user:
+    #     #     target_user.password = single_user["password"]
+    #     if "email" in single_user:
+    #         target_user.email = single_user["email"]
+    #     target_user.serialize()
+    #     db.session.commit()
+    #     return jsonify(target_user)
+
+    if request.method == "DELETE":
+        db.session.delete(target_user)
+        db.session.commit()
+        return jsonify("User is deleted.")
+
+
 # retrieve all users
 @api.route('/users', methods=['GET'])  #working
 def all_users():
