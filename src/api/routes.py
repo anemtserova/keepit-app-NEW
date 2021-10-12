@@ -66,8 +66,8 @@ def all_users():
     
 
 # add a new contact to user contact list
-@api.route('/user/<username>/addcontact', methods=['POST'])  #working
-def add_contact(username):
+@api.route('/user/<user_id>/addcontact', methods=['POST'])  #working
+def add_contact(user_id):
     new_contact = request.get_json()
     if request.method == "POST":
         if new_contact is None or new_contact['name'] is None : 
