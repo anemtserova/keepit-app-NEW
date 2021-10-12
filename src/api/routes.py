@@ -60,6 +60,8 @@ def user():
 def handle_user(username):
     single_user = request.get_json()
     target_user = User.query.filter_by(username=username).first()
+    if target_user is None:
+        raise APIException("User not found", 404)
 
     if request.method == "GET":
         # target_user = single_user
