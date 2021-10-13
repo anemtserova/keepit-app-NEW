@@ -71,14 +71,31 @@ export const ContactCard = props => {
 						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
-					<div className="d-flex flex-row mb-2">
-						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
-						<div className="text-muted w-75">
-							{props.entity.notes.text}
-							{/* {includeNote()}
+					<ul>
+						{props.entity.notes ? (
+							props.entity.notes.map(note => {
+								<div className="d-flex flex-row mb-2">
+									<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
+									<div className="text-muted w-75">
+										{note.text}
+										{/* {includeNote()}
 							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))} */}
-						</div>
-					</div>
+									</div>
+								</div>;
+							})
+						) : (
+							<div className="d-flex flex-row mb-2">
+								<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
+								<div className="text-muted w-75">
+									{" "}
+									Add a note
+									{/* {note.text} */}
+									{/* {includeNote()}
+								{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))} */}
+								</div>
+							</div>
+						)}
+					</ul>
 				</div>
 			</div>
 		</li>
@@ -92,7 +109,8 @@ export const ContactCard = props => {
 ContactCard.propTypes = {
 	history: PropTypes.object,
 	onDelete: PropTypes.func,
-	entity: PropTypes.object
+	entity: PropTypes.object,
+	notes: PropTypes.array
 };
 
 /**
