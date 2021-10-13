@@ -9,6 +9,7 @@ import { AddContact } from "./pages/AddContact.js";
 import { Contacts } from "./pages/Contacts.js";
 import { EditContact } from "./pages/EditContact.js";
 import { Login } from "./pages/login.js";
+import { SignUp } from "./pages/signup";
 import { Home } from "./pages/home.js";
 
 import { Navbar } from "./component/navbar.js";
@@ -33,6 +34,9 @@ const Layout = () => {
 						{/* <Route exact path="/" component={Contacts} /> */}
 						<Route exact path="/login">
 							<Login />
+						</Route>
+						<Route exact path="/signup">
+							<SignUp />
 						</Route>
 						<Route exact path="/add" component={AddContact} />
 						<Route exact path="/edit/:id" component={EditContact} />

@@ -39,7 +39,7 @@ def greet_user():
     
     username = get_jwt_identity()
     hello_user = {
-        "message": "Hello, "+ username.capitalize() + "!"
+        "message": "Welcome to KeepIt.App, "+ username.capitalize() + "!"
         }
     
     return jsonify(hello_user)
