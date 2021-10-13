@@ -102,7 +102,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
-			createContact = (id, name, address, contact_email, phone, text) => {
+			createContact: (id, name, address, contact_email, phone, text) => {
 				fetch(process.env.BACKEND_URL + `/api/user/${id}/addcontact`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
@@ -130,7 +130,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.catch(err => {
 						console.log("An error occurred: ", err);
 					});
-				
 			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {
