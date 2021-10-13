@@ -27,7 +27,7 @@ const Layout = () => {
 		<div className="h-100 ">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar loggedIn = {loggedIn} setLoggedIn={setLoggedIn}/>
+					<Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 					<Switch>
 						<Route exact path="/index.html" component={Contacts} />
 						{/* <Route exact path="/" component={Contacts} /> */}

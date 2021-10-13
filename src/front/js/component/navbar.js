@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { GlobalState } from "../store/appContext";
 
-export const Navbar = (props) => {
+export const Navbar = props => {
 	const { store, actions } = useContext(GlobalState);
 	const history = useHistory();
 	const token = sessionStorage.getItem("token");
@@ -39,4 +39,4 @@ export const Navbar = (props) => {
 Navbar.propTypes = {
 	loggedIn: PropTypes.bool,
 	setLoggedIn: PropTypes.func
-  };
+};
