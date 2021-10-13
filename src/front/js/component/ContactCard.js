@@ -9,28 +9,28 @@ export const ContactCard = props => {
 	const { store, actions } = useContext(GlobalState);
 	const [state, setState] = useState({});
 
-	const includeNote = () => {
-		const userNote = store.noteArray.filter((el, i) => el.userId == props.entity.id);
+	// const includeNote = () => {
+	// 	const userNote = store.noteArray.filter((el, i) => el.userId == props.entity.id);
 
-		console.log("userNote from includeNote() ", userNote);
-		console.log("whole store.noteArray ", store.noteArray);
-		return userNote && userNote.note;
-	};
+	// 	console.log("userNote from includeNote() ", userNote);
+	// 	console.log("whole store.noteArray ", store.noteArray);
+	// 	return userNote && userNote.note;
+	// };
 
-	const displayNote = (noteToDisplay, i) => {
-		if (noteToDisplay.note && noteToDisplay.note != "" && noteToDisplay.userId == props.entity.id) {
-			return (
-				<div className="d-flex justify-content-between w-100 mb-2" key={i}>
-					<div className="text-muted note-script">{noteToDisplay.note}</div>
-					<div className="item1-color d-flex align-items-center justify-content-center btn">
-						<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
-					</div>
-				</div>
-			);
-			{
-			}
-		}
-	};
+	// const displayNote = (noteToDisplay, i) => {
+	// 	if (noteToDisplay.note && noteToDisplay.note != "" && noteToDisplay.userId == props.entity.id) {
+	// 		return (
+	// 			<div className="d-flex justify-content-between w-100 mb-2" key={i}>
+	// 				<div className="text-muted note-script">{noteToDisplay.note}</div>
+	// 				<div className="item1-color d-flex align-items-center justify-content-center btn">
+	// 					<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
+	// 				</div>
+	// 			</div>
+	// 		);
+	// 		{
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<li className="list-group-item my-2 card-style">
@@ -58,7 +58,7 @@ export const ContactCard = props => {
 							</button>
 						</div>
 					</div>
-					<h2 className="name heading-1">{props.entity.full_name}</h2>
+					<h2 className="name heading-1">{props.entity.name}</h2>
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-map-marker-alt text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted">{props.entity.address}</p>
@@ -69,13 +69,13 @@ export const ContactCard = props => {
 					</div>
 					<div className="d-flex flex-row mb-2">
 						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
-						<p className="text-muted text-truncate">{props.entity.email}</p>
+						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
-							{includeNote()}
-							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))}
+							{/* {includeNote()}
+							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))} */}
 						</div>
 					</div>
 				</div>

@@ -7,6 +7,7 @@ import { Modal } from "../component/Modal";
 
 export const Contacts = () => {
 	const { store, actions } = useContext(GlobalState);
+	const token = sessionStorage.getItem("token");
 	const [state, setState] = useState({
 		showModal: false,
 		id: "0"
@@ -29,8 +30,8 @@ export const Contacts = () => {
 				</p>
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						{store.contacts && store.token
-							? store.contacts.map((contact, i) => (
+						{store.activeUser.contacts && token
+							? store.activeUser.contacts.map((contact, i) => (
 									<ContactCard
 										key={i}
 										entity={contact}
@@ -39,7 +40,7 @@ export const Contacts = () => {
 										}}
 									/>
 							  ))
-							: "Loading..."}
+							: "You have no contacts yet."}
 					</ul>
 				</div>
 			</div>

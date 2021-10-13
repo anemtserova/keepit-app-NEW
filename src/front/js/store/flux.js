@@ -2,11 +2,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 	return {
 		store: {
 			contacts: [],
-			token: null,
 			message: "",
-			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
-			allUsers: [],
 			activeUser: {}
+			// token: null,
+			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
 		},
 		actions: {
 			// deleteNote: noteIndex => {
@@ -103,6 +102,36 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
+			createContact = (id, name, address, contact_email, phone, text) => {
+				fetch(process.env.BACKEND_URL + `/api/user/${id}/addcontact`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						name: name,
+						contact_email: contact_email,
+						address: address,
+						phone: phone,
+						text: text
+					})
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						if (response.status == 401) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(respAsJson => {
+						console.log("This is respAsJson from POST:", respAsJson);
+						setStore({ contacts: respAsJson });
+					})
+					.catch(err => {
+						console.log("An error occurred: ", err);
+					});
+				
+			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {
 			// 		method: "PUT",
@@ -140,9 +169,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 
 			greetUser: () => {
 				const store = getStore();
+				const token = sessionStorage.getItem("token");
 				const opts = {
 					headers: {
-						Authorization: "Bearer " + store.token
+						Authorization: "Bearer " + token
 					}
 				};
 

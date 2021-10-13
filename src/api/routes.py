@@ -101,14 +101,19 @@ def all_users():
 # add a new contact to user contact list
 @api.route('/user/<int:user_id>/addcontact', methods=['POST'])  #working
 def add_contact(user_id):
-    new_contact = request.get_json()
+    body = request.get_json()
+    
     if request.method == "POST":
-        if new_contact is None or new_contact['name'] is None : 
+        if body is None or body['name'] is None : 
             raise APIException("Name is required to save the contact", status_code=400) 
-        new_contact = Contact(name=new_contact["name"], contact_email=new_contact["contact_email"], address=new_contact["address"], phone=new_contact["phone"], user_id=user_id) 
+        new_contact = Contact(name=body["name"], contact_email=body["contact_email"], address=body["address"], phone=body["phone"], user_id=user_id) 
         db.session.add(new_contact)
         db.session.commit() 
-
+        
+        new_note = request.get_json()
+        new_note = Note(text=body['text'], contact_id=new_contact.id)
+        db.session.add(new_note)
+        db.session.commit()
         
         return jsonify(new_contact.serialize()), 200
 
@@ -118,7 +123,7 @@ def add_contact(user_id):
 def get_user_contacts(username):
     
     target_user = User.query.filter_by(username=username).first()
-    print("This the selected user contacts: ", target_user.contacts)
+    # print("This the selected user contacts: ", target_user.contacts)
     single_user_contacts = list(map(lambda x: x.serialize(), target_user.contacts))
 
 

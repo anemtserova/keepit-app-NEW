@@ -20,8 +20,8 @@ export const SignUp = props => {
 	const handleSignUp = () => {
 		console.log();
 		actions.signUp(username, email, password);
-
-		return <Redirect to="/" />;
+		history.push("/login");
+		// return <Redirect to="/login" />;
 	};
 
 	return (
