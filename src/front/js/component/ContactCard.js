@@ -74,6 +74,7 @@ export const ContactCard = props => {
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
+							{props.entity.notes.text}
 							{/* {includeNote()}
 							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))} */}
 						</div>

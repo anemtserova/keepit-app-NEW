@@ -3,7 +3,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 		store: {
 			contacts: [],
 			message: "",
-			activeUser: {}
+			activeUser: {},
+			apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io"
 			// token: null,
 			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
 		},
@@ -48,6 +49,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				setStore({ activeUser: null });
 			},
 			login: async (username, password) => {
+				const store = getStore();
 				const opts = {
 					method: "POST",
 					headers: {
@@ -59,7 +61,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
+					const resp = await fetch(store.apiAddress + "/api/login", opts);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
@@ -76,7 +78,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 				}
 			},
 			signUp: (username, email, password) => {
-				fetch(process.env.BACKEND_URL + "/api/user", {
+				const store = getStore();
+				fetch(store.apiAddress + "/api/user", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -103,7 +106,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					});
 			},
 			createContact: (id, name, address, contact_email, phone, text) => {
-				fetch(process.env.BACKEND_URL + `/api/user/${id}/addcontact`, {
+				const store = getStore();
+				fetch(store.apiAddress + `/api/user/${id}/addcontact`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -175,7 +179,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					}
 				};
 
-				fetch(process.env.BACKEND_URL + "/api/greet", opts)
+				fetch(store.apiAddress + "/api/greet", opts)
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(err => console.log("There has been an error loading message from backend", err));
