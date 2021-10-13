@@ -1,17 +1,18 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
 import PropTypes from "prop-types";
 
 export const AddContact = props => {
 	const { store, actions } = useContext(GlobalState);
+	const history = useHistory();
 
 	const [contact, setContact] = useState({
 		name: null,
-		email: null,
+		contact_email: null,
 		address: null,
 		phone: null,
-		note: null
+		text: null
 	});
 
 	const handleInput = e => {
@@ -19,9 +20,17 @@ export const AddContact = props => {
 	};
 
 	const handleSave = () => {
-		actions.postFetch(contact);
+		actions.createContact(
+			store.activeUser.id,
+			contact.name,
+			contact.contact_email,
+			contact.phone,
+			contact.address,
+			contact.text
+		);
 
-		props.history.push("/contacts");
+		// props.history.push("/contacts");
+		history.push("/contacts");
 		console.log("This is the store.contacts ", store.contacts);
 	};
 	return (
@@ -45,7 +54,7 @@ export const AddContact = props => {
 							onChange={handleInput}
 							type="email"
 							className="form-control"
-							name="email"
+							name="contact_email"
 							placeholder="Enter email"
 						/>
 					</div>
@@ -75,7 +84,7 @@ export const AddContact = props => {
 							onChange={handleInput}
 							type="text"
 							className="form-control"
-							name="note"
+							name="text"
 							placeholder="Write a note"
 						/>
 					</div>
