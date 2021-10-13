@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
 
-export const SignUp = () => {
+import PropTypes from "prop-types";
+
+export const SignUp = props => {
 	const { store, actions } = useContext(GlobalState);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
+	// const [newUser, setNewUser] = useState({
+	// 	username: "",
+	// 	email: "",
+	// 	password: ""
+	// });
 	const token = sessionStorage.getItem("token");
 	const history = useHistory();
 
 	const handleSignUp = () => {
-		actions.login(username, password).then(() => {
-			history.push("/");
-		});
+		console.log();
+		actions.signUp(username, email, password);
+
+		return <Redirect to="/" />;
 	};
 
 	return (
@@ -49,11 +57,16 @@ export const SignUp = () => {
 					onChange={e => setPassword(e.target.value)}
 					className="m-1"
 				/>
-				<button onClick={handleLogin} type="submit" className="m-1 btn btn-style">
-					Login
+				<button onClick={handleSignUp} type="submit" className="m-1 btn btn-style">
+					Sign Up
 				</button>
 			</div>
 			{/* )} */}
 		</div>
 	);
+};
+
+SignUp.propTypes = {
+	history: PropTypes.object
+	// match: PropTypes.object
 };

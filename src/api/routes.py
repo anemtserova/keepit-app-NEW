@@ -28,7 +28,7 @@ def create_token():
 
     user = User.query.filter_by(username=username, password=password).first()
     if user is None:
-        return jsonify("This user doesn't exist"), 400
+        return jsonify("This user doesn't exist or you entered wrong username/password."), 400
     access_token = create_access_token(identity=username)
     return jsonify({"token": access_token, "user": user.serialize()})
 
@@ -49,6 +49,9 @@ def greet_user():
 @api.route('/user', methods=['POST']) #working
 def user():
     new_user = request.get_json()
+    # user = User.query.filter_by(username=new_user["username"], email=new_user["email"])
+    # if user:
+    #     raise APIException("This user already exists.", status_code=400)
     if request.method == "POST":
         if new_user is None or new_user['email'] is None or new_user['username'] is None or new_user['password'] is None:
             raise APIException("Input in all fields required", status_code=400)

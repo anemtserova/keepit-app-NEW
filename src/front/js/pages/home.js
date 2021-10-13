@@ -13,7 +13,8 @@ export const Home = () => {
 		() => {
 			if (token && token != "" && token != undefined) {
 				actions.greetUser();
-				actions.getFetch();
+				console.log(store.message);
+				// actions.getFetch();
 			}
 		},
 		[token]

@@ -69,10 +69,39 @@ const getState = ({ getStore, setStore, getActions }) => {
 					console.log("This came from the backend", data);
 					sessionStorage.setItem("token", data.token);
 					setStore({ activeUser: data.user });
+					console.log("Active user: ", getStore().activeUser);
+					console.log("Active user contacts: ", getStore().activeUser.contacts);
 					return true;
 				} catch (error) {
 					console.error("There has been an error while loging in.");
 				}
+			},
+			signUp: (username, email, password) => {
+				fetch(process.env.BACKEND_URL + "/api/user", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						username: username,
+						email: email,
+						password: password
+					})
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						if (response.status == 401) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(respAsJson => {
+						console.log("This is respAsJson from POST:", respAsJson);
+						setStore({ activeUser: respAsJson });
+					})
+					.catch(err => {
+						console.log("An error occurred: ", err);
+					});
 			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {
