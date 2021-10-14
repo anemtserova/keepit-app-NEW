@@ -3,30 +3,24 @@ import { Link, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
 // import PropTypes from "prop-types";
 
-export const AddContact = () => {
+export const AddNote = () => {
 	const { store, actions } = useContext(GlobalState);
 	const history = useHistory();
 
-	const [contact, setContact] = useState({
-		name: null,
-		contact_email: null,
-		address: null,
-		phone: null,
+	const [note, setNote] = useState({
 		text: null
 	});
 
 	const handleInput = e => {
-		setContact({ ...contact, [e.target.name]: e.target.value });
+		setNote({ ...note, [e.target.name]: e.target.value });
 	};
 
 	const handleSave = () => {
-		actions.addContact(
+		actions.addContactNote(
 			store.activeUser.id,
-			contact.name,
-			contact.contact_email,
-			contact.phone,
-			contact.address
-			// contact.text
+			contact.id,
+			
+			contact.text
 		);
 
 		// props.history.push("/contacts");

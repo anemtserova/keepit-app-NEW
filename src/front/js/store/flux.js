@@ -105,7 +105,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
-			createContact: (id, name, address, contact_email, phone, text) => {
+			addContact: (id, name, address, contact_email, phone, text) => {
 				const store = getStore();
 				fetch(store.apiAddress + `/api/user/${id}/addcontact`, {
 					method: "POST",
