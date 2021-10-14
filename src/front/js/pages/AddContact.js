@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
-export const AddContact = props => {
+export const AddContact = () => {
 	const { store, actions } = useContext(GlobalState);
 	const history = useHistory();
 
