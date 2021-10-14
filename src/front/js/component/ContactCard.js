@@ -91,7 +91,7 @@ export const ContactCard = props => {
 					</div>
 				</div>
 			</div>
-			<ModalNote/>
+			<ModalNote />
 		</li>
 	);
 };
