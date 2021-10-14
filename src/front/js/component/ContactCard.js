@@ -12,22 +12,40 @@ export const ContactCard = props => {
 		contact_id: null
 	});
 
+	const [noteArray, setNoteArray] = useState([]);
+
 	const handleNoteInput = e => {
 		setNote({ [e.target.name]: e.target.value });
 	};
 
-	async function addNote() {
-		console.log("Props.entity.id", props.entity.id);
+	const addNote = async () => {
+		// this is the GET + setting the note array
+		let response = await fetch(store.apiAddress + `api/contact/${note.contact_id}/notes`);
+		if (!response.ok) {
+			const message = `An error has occured: ${response.status}`;
+			throw new Error(message);
+		}
+		let notes = await response.json();
+		// console.log("noteArray in contactCard", noteArray);
+		console.log("notesResponseJson in contactCard", notes);
+		return notes;
+	};
+
+	const postANote = () => {
 		note.contact_id = props.entity.id;
+		// this is the POST fetch
 		actions.addContactNote(note.contact_id, note.text);
-		actions.getUserInfo(store.activeUser.username);
-	}
+		addNote().then(notes => {
+			setNoteArray(notes);
+			console.log("noteArray in contactCard", noteArray);
+		});
+	};
 
 	const includeNote = () => {
 		const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
 
 		console.log("userNote from includeNote() ", userNote);
-		console.log("whole store.notes ", store.notes);
+		console.log("whole props.notes ", props.notes);
 		return userNote && userNote.text;
 	};
 
@@ -45,13 +63,6 @@ export const ContactCard = props => {
 			}
 		}
 	};
-
-	// useEffect(
-	// 	() => {
-	// 		actions.getUserInfo(store.activeUser.username);
-	// 	},
-	// 	[note.text]
-	// );
 
 	return (
 		<li className="list-group-item my-2 card-style">
@@ -101,7 +112,7 @@ export const ContactCard = props => {
 							name="text"
 							placeholder="Write a note"
 						/>
-						<button onClick={addNote} className="btn btn-style-small">
+						<button onClick={postANote} className="btn btn-style-small">
 							Add Note
 						</button>
 					</div>

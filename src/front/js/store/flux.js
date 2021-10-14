@@ -171,13 +171,29 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.then(respAsJson => {
 						console.log("This is respAsJson from addNOte POST:", respAsJson);
-						console.log("This is contacts from addNote:", store.contacts);
-						setStore(...activeUser.contacts.notes, { [activeUser.contacts.notes]: respAsJson });
-						console.log("added note:", activeUser.contacts.notes);
+						// console.log("This is contacts from addNote:", store.contacts);
+						// setStore({ notes: [...notes, respAsJson] });
+
+						// console.log("added note:", store.notes);
 					})
 					.catch(err => {
 						console.log("An error occurred: ", err);
 					});
+			},
+			getAllContactNotes: contact_id => {
+				const store = getStore();
+				fetch(store.apiAddress + `api/contact/${contact_id}/notes`)
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(allNotes => {
+						console.log("ALL Notes for GET fetch:", allNotes);
+						// setStore({ notes: allNotes });
+					})
+					.catch(err => console.log("There was a following error: " + err));
 			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {

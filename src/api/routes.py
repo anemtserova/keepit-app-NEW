@@ -131,6 +131,7 @@ def get_user_contacts(username):
     return jsonify(single_user_contacts), 200
 
 
+
 # edit or delete specific contact from user contact list
 @api.route('/user/<int:user_id>/contact/<int:id>', methods=['PUT','DELETE'])    # working
 def handle_contact(user_id, id):
@@ -184,3 +185,13 @@ def handle_note(contact_id, id):
         db.session.delete(target_note)
         db.session.commit()
         return jsonify("Note is deleted.")
+
+
+# get all notes from a contact
+@api.route('/contact/<int:contact_id>/notes', methods=['GET'])
+def all_contact_notes(contact_id):
+    body=request.get_json()
+    all_contact_notes = Note.query.filter_by(contact_id=contact_id)
+    all_notes = list(map(lambda x: x.serialize(), all_contact_notes))
+
+    return jsonify((all_notes)), 200
