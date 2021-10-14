@@ -7,30 +7,40 @@ import { GlobalState } from "../store/appContext";
 
 export const ContactCard = props => {
 	const { store, actions } = useContext(GlobalState);
-	const [state, setState] = useState({});
+	const [state, setState] = useState({
+		showModalNote: false,
+		id: "0"
+	});
+	const stateSetter = contactId => {
+		setState({ showModalNote: true, id: contactId });
+	};
 
-	// const includeNote = () => {
-	// 	const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
+	const setModalNote = () => {
+		setState({ showModalNote: false });
+	};
 
-	// 	console.log("userNote from includeNote() ", userNote);
-	// 	console.log("whole store.noteArray ", store.noteArray);
-	// 	return userNote && userNote.text;
-	// };
+	const includeNote = () => {
+		const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
 
-	// const displayNote = (noteToDisplay, i) => {
-	// 	if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.user_id == props.entity.id) {
-	// 		return (
-	// 			<div className="d-flex justify-content-between w-100 mb-2" key={i}>
-	// 				<div className="text-muted note-script">{noteToDisplay.text}</div>
-	// 				<div className="item1-color d-flex align-items-center justify-content-center btn">
-	// 					<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
-	// 				</div>
-	// 			</div>
-	// 		);
-	// 		{
-	// 		}
-	// 	}
-	// };
+		console.log("userNote from includeNote() ", userNote);
+		console.log("whole store.notes ", store.notes);
+		return userNote && userNote.text;
+	};
+
+	const displayNote = (noteToDisplay, i) => {
+		if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.contact_id == props.entity.id) {
+			return (
+				<div className="d-flex justify-content-between w-100 mb-2" key={i}>
+					<div className="text-muted note-script">{noteToDisplay.text}</div>
+					<div className="item1-color d-flex align-items-center justify-content-center btn">
+						<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
+					</div>
+				</div>
+			);
+			{
+			}
+		}
+	};
 
 	return (
 		<li className="list-group-item my-2 card-style">
@@ -76,11 +86,12 @@ export const ContactCard = props => {
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
 							{includeNote()}
-							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))}
+							{props.notes && props.notes.map((el, i) => displayNote(el, i))}
 						</div>
 					</div>
 				</div>
 			</div>
+			<ModalNote/>
 		</li>
 	);
 };
