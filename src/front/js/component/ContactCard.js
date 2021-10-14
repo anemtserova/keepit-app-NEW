@@ -10,18 +10,18 @@ export const ContactCard = props => {
 	const [state, setState] = useState({});
 
 	// const includeNote = () => {
-	// 	const userNote = store.noteArray.filter((el, i) => el.userId == props.entity.id);
+	// 	const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
 
 	// 	console.log("userNote from includeNote() ", userNote);
 	// 	console.log("whole store.noteArray ", store.noteArray);
-	// 	return userNote && userNote.note;
+	// 	return userNote && userNote.text;
 	// };
 
 	// const displayNote = (noteToDisplay, i) => {
-	// 	if (noteToDisplay.note && noteToDisplay.note != "" && noteToDisplay.userId == props.entity.id) {
+	// 	if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.user_id == props.entity.id) {
 	// 		return (
 	// 			<div className="d-flex justify-content-between w-100 mb-2" key={i}>
-	// 				<div className="text-muted note-script">{noteToDisplay.note}</div>
+	// 				<div className="text-muted note-script">{noteToDisplay.text}</div>
 	// 				<div className="item1-color d-flex align-items-center justify-content-center btn">
 	// 					<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
 	// 				</div>
@@ -71,15 +71,15 @@ export const ContactCard = props => {
 						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
+					
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
-							{/* {note.text} */}
-							{/* {includeNote()}
-							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))} */}
+							
+							{includeNote()}
+							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))}
 						</div>
 					</div>
-					;
 				</div>
 			</div>
 		</li>

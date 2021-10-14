@@ -4,7 +4,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 			contacts: [],
 			message: "",
 			activeUser: {},
-			apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io"
+			notes: [],
+			apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io/"
 			// token: null,
 			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
 		},
@@ -61,7 +62,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch(store.apiAddress + "/api/login", opts);
+					const resp = await fetch(store.apiAddress + "api/login", opts);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
@@ -79,7 +80,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			signUp: (username, email, password) => {
 				const store = getStore();
-				fetch(store.apiAddress + "/api/user", {
+				fetch(store.apiAddress + "api/user", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -107,7 +108,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			addContact: (id, name, address, contact_email, phone, text) => {
 				const store = getStore();
-				fetch(store.apiAddress + `/api/user/${id}/addcontact`, {
+				fetch(store.apiAddress + `api/user/${id}/addcontact`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -134,6 +135,34 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.catch(err => {
 						console.log("An error occurred: ", err);
 					});
+			},
+			addContactNote: (contact_id, text) => {
+				const store = getStore();
+				fetch(store.apiAddress + `api/contact/${contact_id}/addnote`),
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							text: text,
+							contact_id: contact_id
+						})
+					}
+						.then(response => {
+							if (!response.ok) {
+								throw Error(response.statusText);
+							}
+							if (response.status == 401) {
+								throw Error(response.statusText);
+							}
+							return response.json();
+						})
+						.then(respAsJson => {
+							console.log("This is respAsJson from POST:", respAsJson);
+							setStore({ notes: respAsJson });
+						})
+						.catch(err => {
+							console.log("An error occurred: ", err);
+						});
 			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {
@@ -169,7 +198,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// 		})
 			// 		.catch(err => console.log("There was a following error: " + err));
 			// },
-
 			greetUser: () => {
 				const store = getStore();
 				const token = sessionStorage.getItem("token");
@@ -179,7 +207,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					}
 				};
 
-				fetch(store.apiAddress + "/api/greet", opts)
+				fetch(store.apiAddress + "api/greet", opts)
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(err => console.log("There has been an error loading message from backend", err));

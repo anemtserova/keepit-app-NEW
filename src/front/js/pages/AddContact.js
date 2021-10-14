@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 export const AddContact = () => {
 	const { store, actions } = useContext(GlobalState);
@@ -25,8 +25,8 @@ export const AddContact = () => {
 			contact.name,
 			contact.contact_email,
 			contact.phone,
-			contact.address
-			// contact.text
+			contact.address,
+			contact.text
 		);
 
 		// props.history.push("/contacts");
@@ -78,7 +78,10 @@ export const AddContact = () => {
 							placeholder="Enter address"
 						/>
 					</div>
-					<div className="form-group">
+					<div className="">
+						<Link to="/addnote" />
+					</div>
+					<div className="form-group ">
 						<label className="heading-3">Add a Note (optional)</label>
 						<input
 							onChange={handleInput}
