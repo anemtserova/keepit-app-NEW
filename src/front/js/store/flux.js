@@ -45,6 +45,20 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// 		setStore({ token: token });
 			// 	}
 			// },
+			getUserInfo: username => {
+				const store = getStore();
+				fetch(store.apiAddress + `api/user/${username}`)
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(userData => {
+						setStore({ activeUser: userData });
+					})
+					.catch(err => console.log("There was a following error: " + err));
+			},
 			logout: () => {
 				sessionStorage.removeItem("token");
 				setStore({ activeUser: null });
@@ -138,31 +152,32 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			addContactNote: (contact_id, text) => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/contact/${contact_id}/addnote`),
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							text: text,
-							contact_id: contact_id
-						})
-					}
-						.then(response => {
-							if (!response.ok) {
-								throw Error(response.statusText);
-							}
-							if (response.status == 401) {
-								throw Error(response.statusText);
-							}
-							return response.json();
-						})
-						.then(respAsJson => {
-							console.log("This is respAsJson from POST:", respAsJson);
-							setStore({ notes: respAsJson });
-						})
-						.catch(err => {
-							console.log("An error occurred: ", err);
-						});
+				fetch(store.apiAddress + `api/contact/${contact_id}/addnote`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						text: text,
+						contact_id: contact_id
+					})
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						if (response.status == 401) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(respAsJson => {
+						console.log("This is respAsJson from addNOte POST:", respAsJson);
+						console.log("This is contacts from addNote:", store.contacts);
+						setStore(...activeUser.contacts.notes, { [activeUser.contacts.notes]: respAsJson });
+						console.log("added note:", activeUser.contacts.notes);
+					})
+					.catch(err => {
+						console.log("An error occurred: ", err);
+					});
 			},
 			// editFetch: person => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {

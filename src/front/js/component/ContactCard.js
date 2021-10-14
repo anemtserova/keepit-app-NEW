@@ -7,17 +7,21 @@ import { GlobalState } from "../store/appContext";
 
 export const ContactCard = props => {
 	const { store, actions } = useContext(GlobalState);
-	const [state, setState] = useState({
-		showModalNote: false,
-		id: "0"
+	const [note, setNote] = useState({
+		text: "",
+		contact_id: null
 	});
-	const stateSetter = contactId => {
-		setState({ showModalNote: true, id: contactId });
+
+	const handleNoteInput = e => {
+		setNote({ [e.target.name]: e.target.value });
 	};
 
-	const setModalNote = () => {
-		setState({ showModalNote: false });
-	};
+	async function addNote() {
+		console.log("Props.entity.id", props.entity.id);
+		note.contact_id = props.entity.id;
+		actions.addContactNote(note.contact_id, note.text);
+		actions.getUserInfo(store.activeUser.username);
+	}
 
 	const includeNote = () => {
 		const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
@@ -41,6 +45,13 @@ export const ContactCard = props => {
 			}
 		}
 	};
+
+	// useEffect(
+	// 	() => {
+	// 		actions.getUserInfo(store.activeUser.username);
+	// 	},
+	// 	[note.text]
+	// );
 
 	return (
 		<li className="list-group-item my-2 card-style">
@@ -82,6 +93,19 @@ export const ContactCard = props => {
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
 
+					<div className="d-flex  mb-2">
+						<input
+							onChange={handleNoteInput}
+							type="text"
+							className="form-control"
+							name="text"
+							placeholder="Write a note"
+						/>
+						<button onClick={addNote} className="btn btn-style-small">
+							Add Note
+						</button>
+					</div>
+
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
@@ -91,7 +115,6 @@ export const ContactCard = props => {
 					</div>
 				</div>
 			</div>
-			<ModalNote />
 		</li>
 	);
 };
