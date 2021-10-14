@@ -35,7 +35,7 @@ export const Contacts = () => {
 									<ContactCard
 										key={i}
 										entity={contact}
-										// notes={contact.notes}
+										notes={contact.notes}
 										onDelete={() => {
 											stateSetter(contact.id);
 										}}

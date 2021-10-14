@@ -6,6 +6,7 @@ import { Logout } from "./pages/logout";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { AddContact } from "./pages/AddContact.js";
+import { AddNote } from "./pages/AddNote";
 import { Contacts } from "./pages/Contacts.js";
 import { EditContact } from "./pages/EditContact.js";
 import { Login } from "./pages/login.js";
@@ -22,13 +23,12 @@ const Layout = () => {
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
-	const [loggedIn, setLoggedIn] = useState(false);
 
 	return (
 		<div className="h-100 ">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+					<Navbar />
 					<Switch>
 						<Route exact path="/index.html" component={Contacts} />
 						{/* <Route exact path="/" component={Contacts} /> */}
@@ -57,6 +57,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/add">
 							<AddContact />
+						</Route>
+						<Route exact path="/addnote">
+							<AddNote />
 						</Route>
 						{/* <Route exact path="/single/:theid">
 							<Single />

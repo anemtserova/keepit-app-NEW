@@ -111,9 +111,10 @@ def add_contact(user_id):
         db.session.commit() 
         
         new_note = request.get_json()
-        new_note = Note(text=body['text'], contact_id=new_contact.id)
-        db.session.add(new_note)
-        db.session.commit()
+        if "text" in new_note: 
+            new_note = Note(text=body['text'], contact_id=new_contact.id)
+            db.session.add(new_note)
+            db.session.commit()
         
         return jsonify(new_contact.serialize()), 200
 
@@ -159,8 +160,8 @@ def handle_contact(user_id, id):
 # add a note to a contact 
 @api.route('/contact/<int:contact_id>/addnote', methods=['POST'])     #working
 def add_note(contact_id):
-    new_note = request.get_json()
-    new_note = Note(text=new_note['text'], contact_id=contact_id)
+    body = request.get_json()
+    new_note = Note(text=body['text'], contact_id=contact_id)
     db.session.add(new_note)
     db.session.commit()
     

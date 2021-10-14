@@ -71,11 +71,10 @@ export const ContactCard = props => {
 						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
-					
+
 					<div className="d-flex flex-row mb-2">
 						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 						<div className="text-muted w-75">
-							
 							{includeNote()}
 							{store.noteArray && store.noteArray.map((el, i) => displayNote(el, i))}
 						</div>

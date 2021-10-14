@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-export const AddNote = () => {
+export const AddNote = props => {
 	const { store, actions } = useContext(GlobalState);
 	const history = useHistory();
 
@@ -16,62 +16,18 @@ export const AddNote = () => {
 	};
 
 	const handleSave = () => {
-		actions.addContactNote(
-			store.activeUser.id,
-			contact.id,
-			
-			contact.text
-		);
+		console.log("PROPS.ENTITY.ID", props.entity.id);
+		actions.addContactNote(props.entity.id, note.text);
 
 		// props.history.push("/contacts");
 		history.push("/contacts");
-		console.log("This is the store.contacts ", store.contacts);
+		console.log("This is the store.activeUser contact notes ", store.activeUser.contacts.notes);
 	};
 	return (
 		<div className="container">
 			<div>
-				<p className="text-center mt-5 heading-1">Add a new contact</p>
+				<p className="text-center mt-5 heading-1">Add a Note</p>
 				<form>
-					<div className="form-group">
-						<label className="heading-3">Full Name</label>
-						<input
-							onChange={handleInput}
-							type="text"
-							className="form-control "
-							name="name"
-							placeholder="Enter full Name"
-						/>
-					</div>
-					<div className="form-group">
-						<label className="heading-3">Email</label>
-						<input
-							onChange={handleInput}
-							type="email"
-							className="form-control"
-							name="contact_email"
-							placeholder="Enter email"
-						/>
-					</div>
-					<div className="form-group">
-						<label className="heading-3">Phone</label>
-						<input
-							onChange={handleInput}
-							type="phone"
-							className="form-control"
-							name="phone"
-							placeholder="Enter phone number"
-						/>
-					</div>
-					<div className="form-group">
-						<label className="heading-3">Address</label>
-						<input
-							onChange={handleInput}
-							type="text"
-							className="form-control"
-							name="address"
-							placeholder="Enter address"
-						/>
-					</div>
 					<div className="form-group">
 						<label className="heading-3">Add a Note (optional)</label>
 						<input
@@ -94,7 +50,8 @@ export const AddNote = () => {
 	);
 };
 
-AddContact.propTypes = {
+AddNote.propTypes = {
 	history: PropTypes.object,
-	match: PropTypes.object
+	match: PropTypes.object,
+	entity: PropTypes.object
 };

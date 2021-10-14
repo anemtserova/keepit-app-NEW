@@ -7,11 +7,11 @@ export const EditContact = props => {
 	const { store, actions } = useContext(GlobalState);
 	let contact = store.contacts.find((el, i) => el.id == props.match.params.id);
 	const [editedContact, setEditedContact] = useState({
-		full_name: contact.full_name,
-		email: contact.email,
+		name: contact.name,
+		contact_email: contact.email,
 		address: contact.address,
 		phone: contact.phone,
-		note: contact.note,
+		text: contact.text,
 		id: contact.id
 	});
 	const handleInput = e => {
@@ -71,7 +71,7 @@ export const EditContact = props => {
 							value={editedContact.address}
 						/>
 					</div>
-					<div className="form-group">
+					{/* <div className="form-group">
 						<label className="heading-3">Add a Note (optional)</label>
 						<input
 							onChange={handleInput}
@@ -81,7 +81,7 @@ export const EditContact = props => {
 							placeholder="Write a note"
 							value={editedContact.note}
 						/>
-					</div>
+					</div> */}
 					<button onClick={handleSave} type="button" className="btn btn-style form-control mt-3">
 						Save
 					</button>
