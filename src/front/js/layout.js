@@ -30,7 +30,7 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
-						<Route exact path="/index.html" component={Contacts} />
+						{/* <Route exact path="/index.html" component={Contacts} /> */}
 						{/* <Route exact path="/" component={Contacts} /> */}
 						<Route exact path="/login">
 							<Login />

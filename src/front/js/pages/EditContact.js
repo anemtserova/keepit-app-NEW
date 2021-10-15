@@ -5,27 +5,32 @@ import PropTypes from "prop-types";
 
 export const EditContact = props => {
 	const { store, actions } = useContext(GlobalState);
-	let contact = store.contacts.find((el, i) => el.id == props.match.params.id);
+	let contact = store.activeUser["contacts"].find((el, i) => el.id == props.match.params.id);
 	const [editedContact, setEditedContact] = useState({
 		name: contact.name,
-		contact_email: contact.email,
+		contact_email: contact.contact_email,
 		address: contact.address,
-		phone: contact.phone,
-		text: contact.text,
-		id: contact.id
+		phone: contact.phone
 	});
 	const handleInput = e => {
 		setEditedContact({ ...editedContact, [e.target.name]: e.target.value });
 	};
 	const handleSave = () => {
-		actions.editFetch(editedContact);
+		actions.editContact(
+			store.activeUser.id,
+			contact.id,
+			editedContact.name,
+			editedContact.contact_email,
+			editedContact.phone,
+			editedContact.address
+		);
 		props.history.push("/contacts");
-		console.log("Edited note", editedContact.note);
+		//console.log("Edited note", editedContact.note);
 	};
 	return (
 		<div className="container">
 			<div>
-				<h1 className="text-center mt-5 heading-1">Edit contact: {contact.full_name}</h1>
+				<h1 className="text-center mt-5 heading-1">Edit contact: {contact.name}</h1>
 				<form>
 					<div className="form-group">
 						<label className="heading-3">Full Name</label>
@@ -33,9 +38,9 @@ export const EditContact = props => {
 							onChange={handleInput}
 							type="text"
 							className="form-control"
-							name="full_name"
+							name="name"
 							placeholder="Full Name"
-							value={editedContact.full_name}
+							value={editedContact.name}
 						/>
 					</div>
 					<div className="form-group">
@@ -44,9 +49,9 @@ export const EditContact = props => {
 							onChange={handleInput}
 							type="email"
 							className="form-control"
-							name="email"
+							name="contact_email"
 							placeholder="Enter email"
-							value={editedContact.email}
+							value={editedContact.contact_email}
 						/>
 					</div>
 					<div className="form-group">

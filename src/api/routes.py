@@ -149,6 +149,8 @@ def handle_contact(user_id, id):
             target_contact.address = contact_to_edit['address']
         if "phone" in contact_to_edit:
             target_contact.phone = contact_to_edit['phone']
+        # if "user_id" in contact_to_edit:
+        #     target_contact.user_id = contact_to_edit['user_id']
         target_contact = target_contact.serialize()
         db.session.commit()
         return jsonify(target_contact), 200

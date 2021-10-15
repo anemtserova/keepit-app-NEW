@@ -26,15 +26,10 @@ export const SignUp = props => {
 
 	return (
 		<div className="container d-flex flex-column align-items-center ">
-			<div className="d-flex justify-content-center w-25">
+			<div className="d-flex justify-content-center w-75">
 				<h1 className="heading-1">New User Sign-up</h1>
 			</div>
-			{/* {token && token != "" && token != undefined ? (
-				<>
-					<h2>You are logged in with token</h2>
-					<h4 className="w-50">{username}</h4>
-				</>
-			) : ( */}
+
 			<div className="d-flex flex-column justify-content-center w-25">
 				<input
 					type="text"

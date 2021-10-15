@@ -82,7 +82,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return false;
 					}
 					const data = await resp.json();
-					// console.log("This came from the backend", data);
+					console.log("LOGIN: This came from the backend", data);
 					sessionStorage.setItem("token", data.token);
 					setStore({ activeUser: data.user });
 					// console.log("Active user: ", getStore().activeUser);
@@ -149,6 +149,32 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.catch(err => {
 						console.log("An error occurred: ", err);
 					});
+			},
+			editContact: (user_id, id, name, phone, address, contact_email) => {
+				const store = getStore();
+				fetch(store.apiAddress + `api/user/${user_id}/contact/${id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						name: name,
+						contact_email: contact_email,
+						address: address,
+						phone: phone
+					})
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log("EDITCONTACT: data from edit fetch", data);
+						getActions().getUserInfo(store.activeUser["username"]);
+					})
+					.catch(err => console.log("There was a following error: " + err));
 			},
 			addContactNote: (contact_id, text) => {
 				const store = getStore();
