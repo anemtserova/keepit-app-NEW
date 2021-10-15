@@ -28,10 +28,11 @@ export const AddContact = () => {
 			contact.address,
 			contact.text
 		);
-
+		actions.getUserInfo(store.activeUser.username);
 		// props.history.push("/contacts");
 		history.push("/contacts");
-		console.log("This is the store.contacts ", store.contacts);
+		actions.getUserInfo(store.activeUser.username);
+		// console.log("This is the store.contacts ", store.contacts);
 	};
 	return (
 		<div className="container">

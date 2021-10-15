@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
+import PropTypes from "prop-types";
 
 import { ContactCard } from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
 
-export const Contacts = () => {
+export const Contacts = props => {
 	const { store, actions } = useContext(GlobalState);
 	const token = sessionStorage.getItem("token");
+	// const [noteList, setNoteList] = useState(null);
+
 	const [state, setState] = useState({
 		showModal: false,
 		id: "0"
@@ -19,6 +22,15 @@ export const Contacts = () => {
 	const setModal = () => {
 		setState({ showModal: false });
 	};
+
+	// useEffect(
+	// 	() => {
+	// 		if (token && token != "" && token != undefined) {
+	// 			actions.getUserInfo(store.activeUser.username);
+	// 		}
+	// 	},
+	// 	[props.noteList]
+	// );
 
 	return (
 		<div className="container">
@@ -36,6 +48,7 @@ export const Contacts = () => {
 										key={i}
 										entity={contact}
 										notes={contact.notes}
+										noteLst={contact.notes.length}
 										onDelete={() => {
 											stateSetter(contact.id);
 										}}
@@ -48,4 +61,12 @@ export const Contacts = () => {
 			<Modal show={state.showModal} id={state.id} onClose={setModal} />
 		</div>
 	);
+};
+
+Contacts.propTypes = {
+	// history: PropTypes.object,
+	// onDelete: PropTypes.func,
+	// entity: PropTypes.object,
+	// notes: PropTypes.array
+	noteList: PropTypes.number
 };

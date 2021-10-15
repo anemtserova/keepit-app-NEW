@@ -12,33 +12,19 @@ export const ContactCard = props => {
 		contact_id: null
 	});
 
-	const [noteArray, setNoteArray] = useState([]);
+	// const [noteArray, setNoteArray] = useState([]);
 
 	const handleNoteInput = e => {
 		setNote({ [e.target.name]: e.target.value });
 	};
 
-	const addNote = async () => {
-		// this is the GET + setting the note array
-		let response = await fetch(store.apiAddress + `api/contact/${note.contact_id}/notes`);
-		if (!response.ok) {
-			const message = `An error has occured: ${response.status}`;
-			throw new Error(message);
-		}
-		let notes = await response.json();
-		// console.log("noteArray in contactCard", noteArray);
-		console.log("notesResponseJson in contactCard", notes);
-		return notes;
-	};
-
 	const postANote = () => {
-		note.contact_id = props.entity.id;
 		// this is the POST fetch
+		note.contact_id = props.entity.id;
+		actions.getUserInfo(store.activeUser.username);
+		// console.log("Active user data before fetch", store.activeUser);
 		actions.addContactNote(note.contact_id, note.text);
-		addNote().then(notes => {
-			setNoteArray(notes);
-			console.log("noteArray in contactCard", noteArray);
-		});
+		actions.getUserInfo(store.activeUser.username);
 	};
 
 	const includeNote = () => {
@@ -53,9 +39,15 @@ export const ContactCard = props => {
 		if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.contact_id == props.entity.id) {
 			return (
 				<div className="d-flex justify-content-between w-100 mb-2" key={i}>
+					<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
 					<div className="text-muted note-script">{noteToDisplay.text}</div>
-					<div className="item1-color d-flex align-items-center justify-content-center btn">
-						<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt " />
+					<div className="d-flex align-items-center justify-content-end">
+						<div className=" d-flex align-items-center justify-content-center btn">
+							<i onClick={() => actions.deleteNote(i)} className="far fa-edit" />
+						</div>
+						<div className="item1-color d-flex align-items-center justify-content-center btn">
+							<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt" />
+						</div>
 					</div>
 				</div>
 			);
@@ -104,21 +96,24 @@ export const ContactCard = props => {
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
 
-					<div className="d-flex  mb-2">
-						<input
-							onChange={handleNoteInput}
-							type="text"
-							className="form-control"
-							name="text"
-							placeholder="Write a note"
-						/>
-						<button onClick={postANote} className="btn btn-style-small">
-							Add Note
-						</button>
+					<div className="d-flex flex-column mb-2">
+						<label className="heading-3">Notes</label>
+						<div className="d-flex flex-row mb-2">
+							<input
+								onChange={handleNoteInput}
+								type="text"
+								className="form-control"
+								name="text"
+								placeholder="Write a note"
+							/>
+							<button onClick={postANote} className="btn btn-style-small mx-2">
+								Add Note
+							</button>
+						</div>
 					</div>
 
 					<div className="d-flex flex-row mb-2">
-						<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
+						{/* <i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" /> */}
 						<div className="text-muted w-75">
 							{includeNote()}
 							{props.notes && props.notes.map((el, i) => displayNote(el, i))}
