@@ -44,11 +44,14 @@ export const ContactCard = props => {
 					</div>
 					<div className="d-flex align-self-center text-muted note-script">{noteToDisplay.text}</div>
 					<div className="d-flex align-items-center justify-content-end">
-						<div className=" d-flex align-items-center justify-content-center btn">
+						{/* <div className=" d-flex align-items-center justify-content-center btn">
 							<i onClick={() => actions.deleteNote(i)} className="far fa-edit color1" />
-						</div>
-						<div className="item1-color d-flex align-items-center justify-content-center btn">
-							<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt" />
+						</div> */}
+						<div className="item1-color d-flex align-items-center justify-content-center btn mx-4">
+							<i
+								onClick={() => actions.deleteNote(noteToDisplay.contact_id, noteToDisplay.id)}
+								className="fas fa-trash-alt"
+							/>
 						</div>
 					</div>
 				</div>
@@ -116,7 +119,7 @@ export const ContactCard = props => {
 
 					<div className="d-flex flex-row mb-2">
 						{/* <i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" /> */}
-						<div className="text-muted w-75">
+						<div className="text-muted w-100">
 							{includeNote()}
 							{props.notes && props.notes.map((el, i) => displayNote(el, i))}
 						</div>

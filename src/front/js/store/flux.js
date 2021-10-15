@@ -246,25 +246,25 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(err => console.log("There has been an error loading message from backend", err));
+			},
+			deleteNote: (contact_id, id) => {
+				const store = getStore();
+				fetch(store.apiAddress + `api/contact/${contact_id}/note/${id}`, {
+					method: "DELETE"
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log("This is the deleteFetch data: ", data);
+						getActions().getUserInfo(store.activeUser["username"]);
+						// confirm return of data here
+					})
+					.catch(err => console.log("There was a following error: " + err));
 			}
-
-			// deleteFetch: id => {
-			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
-			// 		method: "DELETE"
-			// 	})
-			// 		.then(response => {
-			// 			if (!response.ok) {
-			// 				throw Error(response.statusText);
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then(data => {
-			// 			console.log("This is the deleteFetch data: ", data);
-			// 			getActions().getFetch();
-			// 			// confirm return of data here
-			// 		})
-			// 		.catch(err => console.log("There was a following error: " + err));
-			// },
 
 			//
 			// postFetch: contact => {
