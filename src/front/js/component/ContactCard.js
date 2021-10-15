@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import RetroPhonePhoto from "../../img/retro-phone.jpg";
+import RetroPhonePhoto from "../../img/contacts.png";
 import { Link } from "react-router-dom";
 import { GlobalState } from "../store/appContext";
 
@@ -39,11 +39,13 @@ export const ContactCard = props => {
 		if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.contact_id == props.entity.id) {
 			return (
 				<div className="d-flex justify-content-between w-100 mb-2" key={i}>
-					<i className="far fa-dot-circle text-muted mx-3 mb-2 align-self-center" />
-					<div className="text-muted note-script">{noteToDisplay.text}</div>
+					<div className=" d-flex align-items-center justify-content-center btn">
+						<i className="fas fa-chevron-right color1" />
+					</div>
+					<div className="d-flex align-self-center text-muted note-script">{noteToDisplay.text}</div>
 					<div className="d-flex align-items-center justify-content-end">
 						<div className=" d-flex align-items-center justify-content-center btn">
-							<i onClick={() => actions.deleteNote(i)} className="far fa-edit" />
+							<i onClick={() => actions.deleteNote(i)} className="far fa-edit color1" />
 						</div>
 						<div className="item1-color d-flex align-items-center justify-content-center btn">
 							<i onClick={() => actions.deleteNote(i)} className="fas fa-trash-alt" />
@@ -59,15 +61,15 @@ export const ContactCard = props => {
 	return (
 		<li className="list-group-item my-2 card-style">
 			<div className="d-flex flex-row w-100 ">
-				<div className="d-flex justify-content-center align-items-center w-50">
+				<div className="d-flex justify-content-center align-items-center w-25">
 					<img
 						src={RetroPhonePhoto}
 						alt="Retro phone image"
 						className="align-self-center justify-content-center"
-						style={{ maxWidth: "75%", maxHeight: "100%" }}
+						style={{ maxWidth: "100%", maxHeight: "100%" }}
 					/>
 				</div>
-				<div className="d-flex flex-column w-50 py-2 pl-4 m-3 info-box">
+				<div className="d-flex flex-column w-75 py-2 pl-4 m-3 info-box">
 					<div className="d-flex flex-row justify-content-end">
 						<div className="mx-3">
 							<Link className="" to={"/edit/" + props.entity.id}>

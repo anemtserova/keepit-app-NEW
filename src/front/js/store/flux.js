@@ -82,11 +82,11 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return false;
 					}
 					const data = await resp.json();
-					console.log("This came from the backend", data);
+					// console.log("This came from the backend", data);
 					sessionStorage.setItem("token", data.token);
 					setStore({ activeUser: data.user });
-					console.log("Active user: ", getStore().activeUser);
-					console.log("Active user contacts: ", getStore().activeUser.contacts);
+					// console.log("Active user: ", getStore().activeUser);
+					// console.log("Active user contacts: ", getStore().activeUser.contacts);
 					return true;
 				} catch (error) {
 					console.error("There has been an error while loging in.");
@@ -113,7 +113,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return response.json();
 					})
 					.then(respAsJson => {
-						console.log("This is respAsJson from POST:", respAsJson);
+						// console.log("This is respAsJson from POST:", respAsJson);
 						setStore({ activeUser: respAsJson });
 					})
 					.catch(err => {
@@ -143,7 +143,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return response.json();
 					})
 					.then(respAsJson => {
-						console.log("This is respAsJson from POST:", respAsJson);
+						// console.log("This is respAsJson from POST:", respAsJson);
 						setStore({ contacts: respAsJson });
 					})
 					.catch(err => {
@@ -190,7 +190,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return response.json();
 					})
 					.then(allNotes => {
-						console.log("ALL Notes for GET fetch:", allNotes);
+						// console.log("ALL Notes for GET fetch:", allNotes);
 						// setStore({ notes: allNotes });
 					})
 					.catch(err => console.log("There was a following error: " + err));
@@ -232,13 +232,17 @@ const getState = ({ getStore, setStore, getActions }) => {
 			greetUser: () => {
 				const store = getStore();
 				const token = sessionStorage.getItem("token");
-				const opts = {
+				// const opts = {
+				// 	headers: {
+				// 		Authorization: "Bearer " + token
+				// 	}
+				// };
+
+				fetch(store.apiAddress + "api/greet", {
 					headers: {
 						Authorization: "Bearer " + token
 					}
-				};
-
-				fetch(store.apiAddress + "api/greet", opts)
+				})
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(err => console.log("There has been an error loading message from backend", err));
@@ -262,20 +266,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// 		.catch(err => console.log("There was a following error: " + err));
 			// },
 
-			// getFetch: () => {
-			// 	fetch("https://assets.breatheco.de/apis/fake/contact/agenda/agenda_2025")
-			// 		.then(response => {
-			// 			if (!response.ok) {
-			// 				throw Error(response.statusText);
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then(data => {
-			// 			setStore({ contacts: data });
-			// 		})
-			// 		.catch(err => console.log("There was a following error: " + err));
-			// },
-
+			//
 			// postFetch: contact => {
 			// 	fetch("https://assets.breatheco.de/apis/fake/contact/", {
 			// 		method: "POST",
