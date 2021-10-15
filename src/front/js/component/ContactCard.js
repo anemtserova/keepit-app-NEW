@@ -39,7 +39,7 @@ export const ContactCard = props => {
 		if (noteToDisplay.text && noteToDisplay.text != "" && noteToDisplay.contact_id == props.entity.id) {
 			return (
 				<div className="d-flex justify-content-between w-100 mb-2" key={i}>
-					<i className="fas fa-pen-alt text-muted mx-3 mb-2 align-self-center" />
+					<i className="far fa-dot-circle text-muted mx-3 mb-2 align-self-center" />
 					<div className="text-muted note-script">{noteToDisplay.text}</div>
 					<div className="d-flex align-items-center justify-content-end">
 						<div className=" d-flex align-items-center justify-content-center btn">
