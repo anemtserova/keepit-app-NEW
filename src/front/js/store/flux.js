@@ -76,7 +76,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 				};
 				try {
-					const resp = await fetch(store.apiAddress + "api/login", opts);
+					const resp = await fetch(process.env.BACKEND_URL + "/api/login", opts);
 					if (resp.status !== 200) {
 						alert("There has been an error.");
 						return false;
@@ -94,7 +94,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			signUp: (username, email, password) => {
 				const store = getStore();
-				fetch(store.apiAddress + "api/user", {
+				fetch(process.env.BACKEND_URL + "/api/user", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -122,7 +122,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			addContact: (id, name, address, contact_email, phone, text) => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/user/${id}/addcontact`, {
+				fetch(process.env.BACKEND_URL + `/api/user/${id}/addcontact`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -150,9 +150,9 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
-			editContact: (user_id, id, name, phone, address, contact_email) => {
+			editContact: (user_id, id, name, contact_email, address, phone) => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/user/${user_id}/contact/${id}`, {
+				fetch(process.env.BACKEND_URL + `/api/user/${user_id}/contact/${id}`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json"
@@ -178,7 +178,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			addContactNote: (contact_id, text) => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/contact/${contact_id}/addnote`, {
+				fetch(process.env.BACKEND_URL + `/api/contact/${contact_id}/addnote`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
@@ -208,7 +208,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			getAllContactNotes: contact_id => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/contact/${contact_id}/notes`)
+				fetch(process.env.BACKEND_URL + `/api/contact/${contact_id}/notes`)
 					.then(response => {
 						if (!response.ok) {
 							throw Error(response.statusText);
@@ -264,7 +264,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 				// 	}
 				// };
 
-				fetch(store.apiAddress + "api/greet", {
+				fetch(process.env.BACKEND_URL + "/api/greet", {
 					headers: {
 						Authorization: "Bearer " + token
 					}
@@ -275,7 +275,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			deleteNote: (contact_id, id) => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/contact/${contact_id}/note/${id}`, {
+				fetch(process.env.BACKEND_URL + `/api/contact/${contact_id}/note/${id}`, {
 					method: "DELETE"
 				})
 					.then(response => {
