@@ -30,8 +30,6 @@ export const ContactCard = props => {
 	const includeNote = () => {
 		const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
 
-		console.log("userNote from includeNote() ", userNote);
-		console.log("whole props.notes ", props.notes);
 		return userNote && userNote.text;
 	};
 
@@ -82,7 +80,12 @@ export const ContactCard = props => {
 							</Link>
 						</div>
 						<div className="">
-							<button className="btn item1-color h-100 w-100" onClick={() => props.onDelete()}>
+							<button
+								className="btn item1-color h-100 w-100"
+								onClick={() => {
+									props.onDelete();
+									actions.getUserInfo(store.activeUser["username"]);
+								}}>
 								<i className="fas fa-trash-alt " />
 							</button>
 						</div>

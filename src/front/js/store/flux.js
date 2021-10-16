@@ -175,6 +175,22 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.catch(err => console.log("There was a following error: " + err));
 			},
+			deleteContact: (user_id, id) => {
+				fetch(process.env.BACKEND_URL + `/api/user/${user_id}/contact/${id}`, {
+					method: "DELETE"
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw Error(response.statusText);
+						}
+						return response.json();
+					})
+					.then(data => {
+						getActions().getUserInfo(store.activeUser["username"]);
+						// confirm return of data here
+					})
+					.catch(err => console.log("There was a following error: " + err));
+			},
 			addContactNote: (contact_id, text) => {
 				const store = getStore();
 				fetch(process.env.BACKEND_URL + `/api/contact/${contact_id}/addnote`, {
@@ -213,48 +229,10 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(allNotes => {})
 					.catch(err => console.log("There was a following error: " + err));
 			},
-			// editFetch: person => {
-			// 	fetch("https://assets.breatheco.de/apis/fake/contact/" + person.id, {
-			// 		method: "PUT",
-			// 		headers: {
-			// 			"Content-Type": "application/json"
-			// 		},
-			// 		body: JSON.stringify({
-			// 			full_name: person.full_name,
-			// 			email: person.email,
-			// 			agenda_slug: "agenda_2025",
-			// 			address: person.address,
-			// 			phone: person.phone,
-			// 			note: person.note
-			// 		})
-			// 	})
-			// 		.then(response => {
-			// 			if (!response.ok) {
-			// 				throw Error(response.statusText);
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then(data => {
-			// 			const prevNotes = getStore().noteArray;
-			// 			if (person.note != "" && person.note != undefined) {
-			// 				setStore({ noteArray: [...prevNotes, { userId: data.id, note: person.note }] });
-			// 			}
-			// 			const editedNotes = getStore().noteArray;
-			// 			console.log("Edited Notes Array", editedNotes);
-			// 			localStorage.setItem("notes", JSON.stringify(editedNotes));
-			// 			getActions().getFetch();
-			// 			// confirm return of data here
-			// 		})
-			// 		.catch(err => console.log("There was a following error: " + err));
-			// },
+
 			greetUser: () => {
 				const store = getStore();
 				const token = sessionStorage.getItem("token");
-				// const opts = {
-				// 	headers: {
-				// 		Authorization: "Bearer " + token
-				// 	}
-				// };
 
 				fetch(process.env.BACKEND_URL + "/api/greet", {
 					headers: {
@@ -277,7 +255,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 						return response.json();
 					})
 					.then(data => {
-						console.log("This is the deleteFetch data: ", data);
 						getActions().getUserInfo(store.activeUser["username"]);
 						// confirm return of data here
 					})

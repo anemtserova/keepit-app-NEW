@@ -9,8 +9,9 @@ export const Modal = props => {
 	});
 	const { store, actions } = useContext(GlobalState);
 	const handleDoIt = () => {
-		actions.deleteFetch(props.id);
-		actions.deleteAllUserNotes(props.id);
+		actions.getUserInfo(store.activeUser["username"]);
+		actions.deleteContact(store.activeUser.id, props.id);
+		actions.getUserInfo(store.activeUser["username"]);
 		props.onClose();
 	};
 	return (
