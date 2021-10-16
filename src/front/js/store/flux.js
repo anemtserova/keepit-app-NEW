@@ -85,8 +85,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					console.log("LOGIN: This came from the backend", data);
 					sessionStorage.setItem("token", data.token);
 					setStore({ activeUser: data.user });
-					// console.log("Active user: ", getStore().activeUser);
-					// console.log("Active user contacts: ", getStore().activeUser.contacts);
+
 					return true;
 				} catch (error) {
 					console.error("There has been an error while loging in.");
@@ -120,7 +119,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
-			addContact: (id, name, address, contact_email, phone, text) => {
+			addContact: (id, name, contact_email, phone, address, text) => {
 				const store = getStore();
 				fetch(process.env.BACKEND_URL + `/api/user/${id}/addcontact`, {
 					method: "POST",
@@ -128,8 +127,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					body: JSON.stringify({
 						name: name,
 						contact_email: contact_email,
-						address: address,
 						phone: phone,
+						address: address,
 						text: text
 					})
 				})
@@ -160,8 +159,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					body: JSON.stringify({
 						name: name,
 						contact_email: contact_email,
-						address: address,
-						phone: phone
+						phone: phone,
+						address: address
 					})
 				})
 					.then(response => {
@@ -197,10 +196,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.then(respAsJson => {
 						console.log("This is respAsJson from addNOte POST:", respAsJson);
-						// console.log("This is contacts from addNote:", store.contacts);
-						// setStore({ notes: [...notes, respAsJson] });
-
-						// console.log("added note:", store.notes);
 					})
 					.catch(err => {
 						console.log("An error occurred: ", err);
@@ -215,10 +210,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						}
 						return response.json();
 					})
-					.then(allNotes => {
-						// console.log("ALL Notes for GET fetch:", allNotes);
-						// setStore({ notes: allNotes });
-					})
+					.then(allNotes => {})
 					.catch(err => console.log("There was a following error: " + err));
 			},
 			// editFetch: person => {
@@ -291,42 +283,6 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.catch(err => console.log("There was a following error: " + err));
 			}
-
-			//
-			// postFetch: contact => {
-			// 	fetch("https://assets.breatheco.de/apis/fake/contact/", {
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "application/json"
-			// 		},
-			// 		body: JSON.stringify({
-			// 			full_name: contact.name,
-			// 			email: contact.email,
-			// 			agenda_slug: "agenda_2025",
-			// 			address: contact.address,
-			// 			phone: contact.phone,
-			// 			note: contact.note
-			// 		})
-			// 	})
-			// 		.then(response => {
-			// 			if (!response.ok) {
-			// 				throw Error(response.statusText);
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then(data => {
-			// 			const prevNotes = getStore().noteArray;
-			// 			if (contact.note != "" && contact.note != undefined) {
-			// 				setStore({ noteArray: [...prevNotes, { userId: data.id, note: contact.note }] });
-			// 			}
-			// 			const currNotes = getStore().noteArray;
-			// 			localStorage.setItem("notes", JSON.stringify(currNotes));
-			// 			getActions().getFetch();
-			// 			console.log("This is the POST fetch data ", data);
-			// 			// confirm return of data here
-			// 		})
-			// 		.catch(err => console.log("There was a following error: " + err));
-			// }
 		}
 	};
 };
