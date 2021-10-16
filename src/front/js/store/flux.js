@@ -149,7 +149,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 						console.log("An error occurred: ", err);
 					});
 			},
-			editContact: (user_id, id, name, contact_email, address, phone) => {
+			editContact: (user_id, id, name, contact_email, phone, address) => {
 				const store = getStore();
 				fetch(process.env.BACKEND_URL + `/api/user/${user_id}/contact/${id}`, {
 					method: "PUT",

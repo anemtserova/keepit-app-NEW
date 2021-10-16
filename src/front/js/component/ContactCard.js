@@ -87,9 +87,10 @@ export const ContactCard = props => {
 							</button>
 						</div>
 					</div>
+
 					<h2 className="name heading-1">{props.entity.name}</h2>
 					<div className="d-flex flex-row mb-2">
-						<i className="fas fa-map-marker-alt text-muted mx-3 mb-2 align-self-center" />
+						<i className="fas fa-home text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted">{props.entity.address}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
@@ -97,7 +98,7 @@ export const ContactCard = props => {
 						<p className="text-muted">{props.entity.phone}</p>
 					</div>
 					<div className="d-flex flex-row mb-2">
-						<i className="fa fa-envelope fa-fw text-muted mx-3 mb-2 align-self-center" />
+						<i className="fa fa-at fa-fw text-muted mx-3 mb-2 align-self-center" />
 						<p className="text-muted text-truncate">{props.entity.contact_email}</p>
 					</div>
 

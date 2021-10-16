@@ -9,8 +9,8 @@ export const EditContact = props => {
 	const [editedContact, setEditedContact] = useState({
 		name: contact.name,
 		contact_email: contact.contact_email,
-		address: contact.address,
-		phone: contact.phone
+		phone: contact.phone,
+		address: contact.address
 	});
 	const handleInput = e => {
 		setEditedContact({ ...editedContact, [e.target.name]: e.target.value });
