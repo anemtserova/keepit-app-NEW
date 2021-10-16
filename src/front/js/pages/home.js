@@ -22,27 +22,36 @@ export const Home = () => {
 	);
 
 	return (
-		<div className="container mb-3">
+		<div className="container mb-3 d-flex justify-content-center">
 			{!token ? (
-				<div className="d-flex flex-column align-items-center mb-3">
+				<div className="d-flex flex-column align-items-center mb-3 w-50">
 					<p className="heading-1"> Welcome to KeepIt.App</p>
-					<p>
-						KeepIt.App is an intuitive contact management application that safely stores your contacts at
-						one place and provides an easy access whenever you need them.
-						<p>Features: </p>
-						<p>
-							<b>Add a Conatct</b>
-						</p>
-						<p>
-							<b>Edit a contact</b>
-						</p>
-						<p>
-							<b>Delete a Contact</b>
-						</p>
-						<p>
-							<b>Add, edit, and delete multiple notes from/to a contact</b>
-						</p>
-					</p>
+					<div className="d-flex flex-column align-items-center justify-content-center">
+						<div className="d-flex">
+							<p>
+								KeepIt.App is an intuitive contact management application that safely stores your
+								contacts at one place and provides an easy access whenever you need them.
+							</p>
+						</div>
+						<div className="d-flex flex-column align-items-center justify-content-center">
+							<p className="heading-3 mt-2 mb-0">Features:</p>
+							<div className="d-flex">
+								<p className="my-2">
+									<i className="far fa-plus-square color1" /> <b>Add a Conatct</b>
+								</p>
+							</div>
+							<p className="my-2">
+								<i className="far fa-edit color1" /> <b>Edit a contact</b>
+							</p>
+							<p className="my-2">
+								<i className="fas fa-trash-alt color1" /> <b>Delete a Contact</b>
+							</p>
+							<p className="mt-2 mb-4 pb-3">
+								<i className="far fa-sticky-note color1" />{" "}
+								<b>Add, edit, and delete multiple notes from/to a contact</b>
+							</p>
+						</div>
+					</div>
 					<span>
 						<Link to="/login">
 							<button className="btn btn-style ">Log In</button>
