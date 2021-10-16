@@ -9,7 +9,35 @@ import { Modal } from "../component/Modal";
 export const Contacts = props => {
 	const { store, actions } = useContext(GlobalState);
 	const token = sessionStorage.getItem("token");
-	// const [noteList, setNoteList] = useState(null);
+	// const [searchName, setSearchName] = useState(null);
+	// const [searchResults, setSearchResults] = useState([]);
+
+	// let results = [];
+
+	// const getSearchInput = e => {
+	// 	return setSearchName(e.target.value);
+	// };
+
+	// useEffect(
+	// 	() => {
+	// 		searchName
+	// 			? (results = store.activeUser.contacts.filter(
+	// 					contact =>
+	// 						contact.name.toLowerCase().startsWith(searchName.toLowerCase()) ||
+	// 						contact.name.toLowerCase().includes(searchName.toLowerCase())
+	// 			  ))
+	// 			: (results = []);
+	// 		setSearchResults(results);
+	// 	},
+	// 	[searchName]
+	// );
+
+	// const findAContact = () => {
+	// 	foundContact = store.activeUser.contacts.find(el => {
+	// 		el.name == searchName;
+	// 	});
+	// 	return foundContact;
+	// };
 
 	const [state, setState] = useState({
 		showModal: false,
@@ -23,15 +51,6 @@ export const Contacts = props => {
 		setState({ showModal: false });
 	};
 
-	// useEffect(
-	// 	() => {
-	// 		if (token && token != "" && token != undefined) {
-	// 			actions.getUserInfo(store.activeUser.username);
-	// 		}
-	// 	},
-	// 	[props.noteList]
-	// );
-
 	return (
 		<div className="container">
 			<div className=" d-flex flex-column">
@@ -40,21 +59,39 @@ export const Contacts = props => {
 						Add a new contact
 					</Link>
 				</p>
+				{/* <div className="input-group mb-3">
+					<input
+						type="text"
+						value={searchName}
+						onChange={getSearchInput}
+						className="form-control"
+						placeholder="Search for a name..."
+						aria-label="Search for a name..."
+						aria-describedby="button-addon2"
+					/>
+					<div className="input-group-append">
+						<button className="btn btn-style" type="button" id="button-addon2">
+							<i className="fas fa-search" />
+						</button>
+					</div>
+				</div> */}
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						{store.activeUser.contacts && token
-							? store.activeUser.contacts.map((contact, i) => (
-									<ContactCard
-										key={i}
-										entity={contact}
-										notes={contact.notes}
-										noteLst={contact.notes.length}
-										onDelete={() => {
-											stateSetter(contact.id);
-										}}
-									/>
-							  ))
-							: "You have no contacts yet."}
+						{store.activeUser.contacts && token ? (
+							store.activeUser.contacts.map((contact, i) => (
+								<ContactCard
+									key={i}
+									entity={contact}
+									notes={contact.notes}
+									noteLst={contact.notes.length}
+									onDelete={() => {
+										stateSetter(contact.id);
+									}}
+								/>
+							))
+						) : (
+							<div className="heading-3">You have no contacts yet.</div>
+						)}
 					</ul>
 				</div>
 			</div>
