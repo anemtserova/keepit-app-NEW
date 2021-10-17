@@ -68,7 +68,7 @@ export const Home = () => {
 				</div>
 			) : (
 				<div className="d-flex flex-column align-items-center ">
-					<p className="heading-1">{store.message}</p>
+					<p className="heading-1 text-center">{store.message}</p>
 					<Link className="heading-3" to="/contacts">
 						Go to Your Contacts
 					</Link>
