@@ -25,11 +25,11 @@ export const Home = () => {
 		<div className="container mb-3 d-flex justify-content-center">
 			{!token ? (
 				<div className="d-flex flex-column align-items-center mb-3 w-75">
-					<p className="heading-1"> Welcome to KeepIt.App</p>
+					<p className="heading-1 text-center"> Welcome to KeepIt.App</p>
 					<div className="d-flex flex-column align-items-center justify-content-center">
 						<div className="d-flex">
-							<p className="home-text">
-								<span className="heading-3">KeepIt.App</span> is an easy-to-use contact management
+							<p className="home-text text-center">
+								<span className="heading-3 ">KeepIt.App</span> is an easy-to-use contact management
 								application that safely stores your contacts at one place and provides an easy access
 								whenever you need them through its simple and enjoyable user inteface.
 							</p>

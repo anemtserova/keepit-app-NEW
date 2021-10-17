@@ -18,13 +18,13 @@ export const Navbar = props => {
 				{!token ? (
 					<div className="">
 						<Link to="/login">
-							<button className="btn btn-style">Log In</button>
+							<button className="btn btn-style log-btns">Log In</button>
 						</Link>
 					</div>
 				) : (
 					<div>
 						<button
-							className="btn btn-style"
+							className="btn btn-style log-btns"
 							onClick={() => {
 								actions.logout();
 								history.push("/logout");

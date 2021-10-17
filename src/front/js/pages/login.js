@@ -46,7 +46,7 @@ export const Login = () => {
 					onChange={e => setPassword(e.target.value)}
 					className="m-1"
 				/>
-				<button onClick={handleLogin} type="submit" className="m-1 btn btn-style">
+				<button onClick={handleLogin} type="submit" className="m-1 btn btn-style ">
 					Login
 				</button>
 			</div>
