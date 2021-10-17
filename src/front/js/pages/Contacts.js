@@ -15,29 +15,32 @@ export const Contacts = props => {
 	// let results = [];
 
 	// const getSearchInput = e => {
-	// 	return setSearchName(e.target.value);
+	// 	setSearchName(e.target.value);
+	// 	console.log("searched Name", searchName);
+	// 	return searchName;
 	// };
-
-	// useEffect(
-	// 	() => {
-	// 		searchName
-	// 			? (results = store.activeUser.contacts.filter(
-	// 					contact =>
-	// 						contact.name.toLowerCase().startsWith(searchName.toLowerCase()) ||
-	// 						contact.name.toLowerCase().includes(searchName.toLowerCase())
-	// 			  ))
-	// 			: (results = []);
-	// 		setSearchResults(results);
-	// 	},
-	// 	[searchName]
-	// );
 
 	// const findAContact = () => {
-	// 	foundContact = store.activeUser.contacts.find(el => {
-	// 		el.name == searchName;
-	// 	});
-	// 	return foundContact;
-	// };
+	// 	console.log("searchName", searchName);
+	// 	searchName
+	// 		? (results = store.activeUser.contacts.filter(el => {
+	// 				// el.name.toLowerCase().startsWith(searchName.toLowerCase()) ||
+	// 				// 	el.name.toLowerCase().includes(searchName.toLowerCase());
+	// 				return el.name == searchName;
+	// 		  }))
+	// 		: (results = []);
+	// 	setSearchResults(results);
+	// 	console.log("FOUND contacts", searchResults);
+	// 	console.log("Active user contacts", store.activeUser.contacts);
+	// 	return searchResults;
+	// <ContactCard
+	// 	entity={foundContacts}
+	// 	// notes={foundContact["notes"]}
+	// 	onDelete={() => {
+	// 		stateSetter(foundContacts["id"]);
+	// 	}}
+	// />;
+	//};
 
 	const [state, setState] = useState({
 		showModal: false,
@@ -70,14 +73,14 @@ export const Contacts = props => {
 						aria-describedby="button-addon2"
 					/>
 					<div className="input-group-append">
-						<button className="btn btn-style" type="button" id="button-addon2">
+						<button onClick={findAContact} className="btn btn-style" type="button" id="button-addon2">
 							<i className="fas fa-search" />
 						</button>
 					</div>
 				</div> */}
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						{store.activeUser.contacts && token ? (
+						{store.activeUser.contacts && token && store.activeUser.contacts.length > 0 ? (
 							store.activeUser.contacts.map((contact, i) => (
 								<ContactCard
 									key={i}
@@ -90,7 +93,7 @@ export const Contacts = props => {
 								/>
 							))
 						) : (
-							<div className="heading-3 text-center">You have no contacts yet.</div>
+							<div className="heading-3 text-center">You have no contacts to show.</div>
 						)}
 					</ul>
 				</div>
@@ -105,5 +108,5 @@ Contacts.propTypes = {
 	// onDelete: PropTypes.func,
 	// entity: PropTypes.object,
 	// notes: PropTypes.array
-	noteList: PropTypes.number
+	//noteList: PropTypes.number
 };

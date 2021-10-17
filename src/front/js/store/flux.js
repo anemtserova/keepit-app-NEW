@@ -176,6 +176,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.catch(err => console.log("There was a following error: " + err));
 			},
 			deleteContact: (user_id, id) => {
+				const store = getStore();
 				fetch(process.env.BACKEND_URL + `/api/user/${user_id}/contact/${id}`, {
 					method: "DELETE"
 				})

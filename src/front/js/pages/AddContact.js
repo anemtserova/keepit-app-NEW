@@ -30,6 +30,7 @@ export const AddContact = () => {
 		);
 		actions.getUserInfo(store.activeUser.username);
 		// props.history.push("/contacts");
+		actions.getUserInfo(store.activeUser.username);
 		history.push("/contacts");
 		actions.getUserInfo(store.activeUser.username);
 		// console.log("This is the store.contacts ", store.contacts);
