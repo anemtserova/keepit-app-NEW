@@ -6,7 +6,7 @@ import { Logout } from "./pages/logout";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { AddContact } from "./pages/AddContact.js";
-import { AddNote } from "./pages/AddNote";
+
 import { Contacts } from "./pages/Contacts.js";
 import { EditContact } from "./pages/EditContact.js";
 import { Login } from "./pages/login.js";
@@ -30,8 +30,6 @@ const Layout = () => {
 				<ScrollToTop>
 					<Navbar />
 					<Switch>
-						{/* <Route exact path="/index.html" component={Contacts} /> */}
-						{/* <Route exact path="/" component={Contacts} /> */}
 						<Route exact path="/login">
 							<Login />
 						</Route>
@@ -58,9 +56,7 @@ const Layout = () => {
 						<Route exact path="/add">
 							<AddContact />
 						</Route>
-						<Route exact path="/addnote">
-							<AddNote />
-						</Route>
+
 						{/* <Route exact path="/single/:theid">
 							<Single />
 						</Route> */}

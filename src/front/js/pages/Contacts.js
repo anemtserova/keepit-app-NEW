@@ -9,6 +9,7 @@ import { Modal } from "../component/Modal";
 export const Contacts = props => {
 	const { store, actions } = useContext(GlobalState);
 	const token = sessionStorage.getItem("token");
+	//const loggedUser = localStorage.getItem("loggedUserUsername");
 	// const [searchName, setSearchName] = useState(null);
 	// const [searchResults, setSearchResults] = useState([]);
 
@@ -41,6 +42,10 @@ export const Contacts = props => {
 	// 	}}
 	// />;
 	//};
+
+	// useEffect(() => {
+	// 	loggedUser && actions.getUserInfo(loggedUser);
+	// }, []);
 
 	const [state, setState] = useState({
 		showModal: false,
@@ -80,6 +85,7 @@ export const Contacts = props => {
 				</div> */}
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
+						{}
 						{store.activeUser.contacts && token && store.activeUser.contacts.length > 0 ? (
 							store.activeUser.contacts.map((contact, i) => (
 								<ContactCard

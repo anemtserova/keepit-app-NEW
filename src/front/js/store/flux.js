@@ -4,8 +4,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 			contacts: [],
 			message: "",
 			activeUser: {},
-			notes: [],
-			apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io/"
+			notes: []
+			//apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io/"
 			// token: null,
 			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
 		},
@@ -61,6 +61,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			},
 			logout: () => {
 				sessionStorage.removeItem("token");
+				localStorage.removeItem("loggedUserUsername");
 				setStore({ activeUser: null });
 			},
 			login: async (username, password) => {
@@ -85,6 +86,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					console.log("LOGIN: This came from the backend", data);
 					sessionStorage.setItem("token", data.token);
 					setStore({ activeUser: data.user });
+					localStorage.setItem("loggedUserUsername", JSON.stringify(data.user.username));
 
 					return true;
 				} catch (error) {

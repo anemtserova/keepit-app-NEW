@@ -19,17 +19,16 @@ export const ContactCard = props => {
 	};
 
 	const postANote = () => {
-		// this is the POST fetch
 		note.contact_id = props.entity.id;
 		actions.getUserInfo(store.activeUser.username);
-		// console.log("Active user data before fetch", store.activeUser);
+
 		actions.addContactNote(note.contact_id, note.text);
 		actions.getUserInfo(store.activeUser.username);
+		//document.getElementById("note-text").value = "";
 	};
 
 	const includeNote = () => {
 		const userNote = props.notes.filter((el, i) => el.contact_id == props.entity.id);
-
 		return userNote && userNote.text;
 	};
 
@@ -47,7 +46,9 @@ export const ContactCard = props => {
 						</div> */}
 						<div className="item1-color d-flex align-items-center justify-content-center btn mx-4">
 							<i
-								onClick={() => actions.deleteNote(noteToDisplay.contact_id, noteToDisplay.id)}
+								onClick={() => {
+									actions.deleteNote(noteToDisplay.contact_id, noteToDisplay.id);
+								}}
 								className="fas fa-trash-alt"
 							/>
 						</div>
@@ -108,14 +109,22 @@ export const ContactCard = props => {
 					<div className="d-flex flex-column mb-2">
 						<label className="heading-3">Notes</label>
 						<div className="d-flex flex-row mb-2">
-							<input
-								onChange={handleNoteInput}
-								type="text"
-								className="form-control"
-								name="text"
-								placeholder="Write a note"
-							/>
-							<button onClick={postANote} className="btn btn-style-small mx-2">
+							<div className="w-100">
+								<input
+									onChange={handleNoteInput}
+									type="text"
+									className="form-control"
+									name="text"
+									id="note-text"
+									placeholder="Write a
+								note"
+								/>
+							</div>
+							<button
+								onClick={() => {
+									postANote();
+								}}
+								className="btn btn-style-small mx-2">
 								Add Note
 							</button>
 						</div>

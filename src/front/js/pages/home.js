@@ -51,8 +51,8 @@ export const Home = () => {
 								<div>
 									<i className="far fa-sticky-note color1" /> <b>Notes: </b>
 								</div>
-								<b>Add multiple notes to a contact</b>
-								<b>Delete notes</b>
+								<b className="text-center">Add multiple notes to a contact</b>
+								<b className="text-center">Delete notes</b>
 							</p>
 						</div>
 					</div>
