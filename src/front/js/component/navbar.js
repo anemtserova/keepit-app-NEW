@@ -22,14 +22,16 @@ export const Navbar = props => {
 						</Link>
 					</div>
 				) : (
-					<button
-						className="btn btn-style"
-						onClick={() => {
-							actions.logout();
-							history.push("/logout");
-						}}>
-						Log Out
-					</button>
+					<div>
+						<button
+							className="btn btn-style"
+							onClick={() => {
+								actions.logout();
+								history.push("/logout");
+							}}>
+							Log Out
+						</button>
+					</div>
 				)}
 			</div>
 		</nav>
