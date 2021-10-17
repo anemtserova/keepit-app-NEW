@@ -47,9 +47,12 @@ export const Home = () => {
 							<p className="my-2">
 								<i className="fas fa-trash-alt color1" /> <b>Delete a Contact</b>
 							</p>
-							<p className="mt-2 mb-4 pb-3">
-								<i className="far fa-sticky-note color1" />{" "}
-								<b>Add, edit, and delete multiple notes from/to a contact</b>
+							<p className="d-flex flex-column align-items-center justify-content-center mt-2 mb-4 pb-3">
+								<div>
+									<i className="far fa-sticky-note color1" /> <b>Notes: </b>
+								</div>
+								<b>Add multiple notes to a contact</b>
+								<b>Delete notes</b>
 							</p>
 						</div>
 					</div>

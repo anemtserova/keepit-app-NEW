@@ -21,8 +21,8 @@ export const Login = () => {
 	// }
 
 	return (
-		<div className="container d-flex flex-column align-items-center ">
-			<div className="d-flex justify-content-center w-25">
+		<div className="container d-flex flex-column align-items-center w-75">
+			<div className="d-flex justify-content-center w-50">
 				<h1 className="heading-1">User Login</h1>
 			</div>
 			{/* {token && token != "" && token != undefined ? (
@@ -31,7 +31,7 @@ export const Login = () => {
 					<h4 className="w-50">{username}</h4>
 				</>
 			) : ( */}
-			<div className="d-flex flex-column justify-content-center w-25">
+			<div className="d-flex flex-column justify-content-center w-50">
 				<input
 					type="text"
 					placeholder="username"

@@ -90,7 +90,7 @@ export const Contacts = props => {
 								/>
 							))
 						) : (
-							<div className="heading-3">You have no contacts yet.</div>
+							<div className="heading-3 text-center">You have no contacts yet.</div>
 						)}
 					</ul>
 				</div>
