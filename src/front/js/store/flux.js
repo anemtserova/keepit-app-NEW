@@ -47,7 +47,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// },
 			getUserInfo: username => {
 				const store = getStore();
-				fetch(store.apiAddress + `api/user/${username}`)
+				fetch(process.env.BACKEND_URL + `/api/user/${username}`)
 					.then(response => {
 						if (!response.ok) {
 							throw Error(response.statusText);
