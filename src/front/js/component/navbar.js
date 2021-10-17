@@ -24,7 +24,7 @@ export const Navbar = props => {
 				) : (
 					<div>
 						<button
-							className="btn btn-style log-btns"
+							className="btn btn-style-logout log-btns"
 							onClick={() => {
 								actions.logout();
 								history.push("/logout");
