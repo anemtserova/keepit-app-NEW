@@ -47,7 +47,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 			// },
 			getUserInfo: username => {
 				const store = getStore();
-				fetch(process.env.BACKEND_URL + `/api/user/${username}`)
+				const loggedUser = JSON.parse(localStorage.getItem("loggedUserUsername"));
+				fetch(process.env.BACKEND_URL + `/api/user/${loggedUser}`)
 					.then(response => {
 						if (!response.ok) {
 							throw Error(response.statusText);
@@ -215,6 +216,7 @@ const getState = ({ getStore, setStore, getActions }) => {
 					})
 					.then(respAsJson => {
 						console.log("This is respAsJson from addNOte POST:", respAsJson);
+						getActions().getUserInfo(store.activeUser["username"]);
 					})
 					.catch(err => {
 						console.log("An error occurred: ", err);

@@ -7,10 +7,11 @@ import { GlobalState } from "../store/appContext";
 
 export const ContactCard = props => {
 	const { store, actions } = useContext(GlobalState);
-	const [note, setNote] = useState({
+	const noteState = {
 		text: "",
 		contact_id: null
-	});
+	};
+	const [note, setNote] = useState(noteState);
 
 	// const [noteArray, setNoteArray] = useState([]);
 
@@ -20,11 +21,12 @@ export const ContactCard = props => {
 
 	const postANote = () => {
 		note.contact_id = props.entity.id;
-		actions.getUserInfo(store.activeUser.username);
+		// actions.getUserInfo(store.activeUser.username);
 
 		actions.addContactNote(note.contact_id, note.text);
-		actions.getUserInfo(store.activeUser.username);
+
 		//document.getElementById("note-text").value = "";
+		setNote(noteState);
 	};
 
 	const includeNote = () => {
@@ -113,6 +115,7 @@ export const ContactCard = props => {
 								<input
 									onChange={handleNoteInput}
 									type="text"
+									value={note.text}
 									className="form-control"
 									name="text"
 									id="note-text"
