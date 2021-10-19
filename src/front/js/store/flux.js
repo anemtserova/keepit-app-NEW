@@ -5,46 +5,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 			message: "",
 			activeUser: {},
 			notes: []
-			//apiAddress: "https://3001-sapphire-mule-7vfxj6dr.ws-eu17.gitpod.io/"
-			// token: null,
-			// noteArray: JSON.parse(localStorage.getItem("notes")) || []
 		},
 		actions: {
-			// deleteNote: noteIndex => {
-			// 	const prevNotes = getStore().noteArray;
-			// 	const notesNotDeleted = prevNotes.filter((el, i) => {
-			// 		return i != noteIndex;
-			// 	});
-			// 	setStore({ noteArray: notesNotDeleted });
-			// 	localStorage.setItem("notes", JSON.stringify(notesNotDeleted));
-			// },
-			// deleteAllUserNotes: id => {
-			// 	const prevNotes = getStore().noteArray;
-			// 	const notesNotDeleted = prevNotes.filter(el => {
-			// 		return el.userId != id;
-			// 	});
-			// 	setStore({ noteArray: notesNotDeleted });
-			// 	localStorage.setItem("notes", JSON.stringify(notesNotDeleted));
-			// },
-			// getAllUsers: () => {
-			// 	fetch(process.env.BACKEND_URL + "/api/users", opts)
-			// 		.then(response => {
-			// 			if (!response.ok) {
-			// 				throw Error(response.statusText);
-			// 			}
-			// 			return response.json();
-			// 		})
-			// 		.then(allUsers => {
-			// 			setStore({ allUsers: allUsers });
-			// 		})
-			// 		.catch(err => console.log("There was a following error: " + err));
-			// },
-			// saveTokenFromSessionStorage: () => {
-			// 	const token = sessionStorage.getItem("token");
-			// 	if (token && token != "" && token != undefined) {
-			// 		setStore({ token: token });
-			// 	}
-			// },
 			getUserInfo: username => {
 				const store = getStore();
 				const loggedUser = JSON.parse(localStorage.getItem("loggedUserUsername"));

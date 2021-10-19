@@ -9,43 +9,6 @@ import { Modal } from "../component/Modal";
 export const Contacts = props => {
 	const { store, actions } = useContext(GlobalState);
 	const token = sessionStorage.getItem("token");
-	//const loggedUser = localStorage.getItem("loggedUserUsername");
-	// const [searchName, setSearchName] = useState(null);
-	// const [searchResults, setSearchResults] = useState([]);
-
-	// let results = [];
-
-	// const getSearchInput = e => {
-	// 	setSearchName(e.target.value);
-	// 	console.log("searched Name", searchName);
-	// 	return searchName;
-	// };
-
-	// const findAContact = () => {
-	// 	console.log("searchName", searchName);
-	// 	searchName
-	// 		? (results = store.activeUser.contacts.filter(el => {
-	// 				// el.name.toLowerCase().startsWith(searchName.toLowerCase()) ||
-	// 				// 	el.name.toLowerCase().includes(searchName.toLowerCase());
-	// 				return el.name == searchName;
-	// 		  }))
-	// 		: (results = []);
-	// 	setSearchResults(results);
-	// 	console.log("FOUND contacts", searchResults);
-	// 	console.log("Active user contacts", store.activeUser.contacts);
-	// 	return searchResults;
-	// <ContactCard
-	// 	entity={foundContacts}
-	// 	// notes={foundContact["notes"]}
-	// 	onDelete={() => {
-	// 		stateSetter(foundContacts["id"]);
-	// 	}}
-	// />;
-	//};
-
-	// useEffect(() => {
-	// 	loggedUser && actions.getUserInfo(loggedUser);
-	// }, []);
 
 	const [state, setState] = useState({
 		showModal: false,
@@ -67,22 +30,7 @@ export const Contacts = props => {
 						Add a new contact
 					</Link>
 				</p>
-				{/* <div className="input-group mb-3">
-					<input
-						type="text"
-						value={searchName}
-						onChange={getSearchInput}
-						className="form-control"
-						placeholder="Search for a name..."
-						aria-label="Search for a name..."
-						aria-describedby="button-addon2"
-					/>
-					<div className="input-group-append">
-						<button onClick={findAContact} className="btn btn-style" type="button" id="button-addon2">
-							<i className="fas fa-search" />
-						</button>
-					</div>
-				</div> */}
+
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
 						{}
