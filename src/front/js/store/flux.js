@@ -147,6 +147,8 @@ const getState = ({ getStore, setStore, getActions }) => {
 					.then(respAsJson => {
 						// console.log("This is respAsJson from POST:", respAsJson);
 						setStore({ contacts: respAsJson });
+						console.log("array of contacts:", store.contacts);
+						getActions().getUserInfo(store.activeUser["username"]);
 					})
 					.catch(err => {
 						console.log("An error occurred: ", err);
