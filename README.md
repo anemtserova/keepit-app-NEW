@@ -1,8 +1,8 @@
-# APP IS UNDER RECONSTRUCTION...
+
 
 # KeepIt.App
 
-This is a simple contact management app that has user authentication through `flask-JWT-extended` and is built with `reactjs`.
+This is an easy-to-use full-stack contact management app built with `reactjs` and `Python/Flask`, and `SQLAlchemy`.
 
 The user can add, edit, and delete contacts. Notes can be added and deleted to each contact as well.
 
